@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width">
+    <meta name="description" content="ego" />
+    <meta name="keywords" content="ego" />
+    <title>ego</title>
+    <link href="../../common/base.css" rel="stylesheet" />
+    <link href="../../pages/works/list.css" rel="stylesheet" />
+    <script src="../../common/js/handlebars.js"></script>
+</head>
+
+<body>
+    <!-- 顶栏 -->
+    <div class="g-header">
+        <div class="logo">
+            <img src="../res/images/logo.png" alt="logo">
+            <span>/ 漫 画 学 园 /</span>
+        </div>
+        <div class="m-tabs" id="hdtabs">
+            <div class="menu">
+                <ul class="f-cb">
+                    <li><a href="/index">首页</a></li>
+                    <li><a href="#">作品</a></li>
+                    <li><a href="#">圈子</a></li>
+                    <li><a href="#">奇思妙想</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="search">
+            <form action="/search" id="search" method="GET">
+                <div class="u-search">
+                    <input type="text" name="keyword" id="keyword" placeholder="输入搜索内容">
+                    <button type="submit" class="u-icon u-icon-search u-icon-btn"></button>
+                </div>
+            </form>
+        </div>
+        <div id="user">
+            <div id="guest">
+                <button id="login" class="u-btn u-btn-primary u-btn-icon">
+                            <i class="u-icon u-icon-user"></i><span>登 录</span>
+                        </button>
+                <button id="register" class="u-btn u-btn-link">注 册</button>
+            </div>
+            <div class="m-user f-dn" id="userdropdown">
+                <div class="user_info">
+                    <span class="user_avatar"><img src="../res/images/touxiang.PNG" alt="头像"></span>
+                    <span>
+                            <div class="user_name" id="name">用户名</div>
+                            <span class="u-icon"></span>
+                    </span>
+                    <span class="u-icon u-icon-down"></span>
+                </div>
+                <ul class="user_list">
+                    <li>个人中心</li>
+                    <li>信 息</li>
+                    <li>设 置</li>
+                    <li id="logout">退出账号</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- banner -->
+    <div class="g-banner" id="g-banner">
+
+    </div>
+    <div class="g-body">
+        <div class="g-profile"> </div>
+        <div class="g-main">
+            <div class="m-aside">
+                <!-- handlebars模板 -->
+                <script id="entry-template" type="text/x-handlebars-template">
+                    <h1>{{title}}</h1>
+                </script>
+            </div>
+            <div class="g-wrap">
+                <ul class="m-works">
+                    请先登录~！
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="../../common/js/util.js"></script>
+    <script src="../../pages/works/list.js"></script>
+    <script src="../../pages/modal.js"></script>
+    <script src="../common/js/md5.js"></script>
+    <script src="../common/js/address_codes.js"></script>
+</body>
+
+</html>

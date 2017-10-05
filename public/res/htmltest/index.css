@@ -1,0 +1,25 @@
+.modal-reg{
+    width: 350px;
+    background: #fff;
+}
+.u-formitem .sexcheck{
+    display: flex;
+    padding: 0 60px;
+}
+.u-formitem .formitem_ct{
+    height: 37px;
+    width: 100%;
+    margin: 0;
+    padding-left: 25px;
+    border: 1px solid #7ad7c4;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+.u-formitem .formitem_ct>input{
+    width: 169px;
+    height: 100%;
+    border: none;
+}
+.u-formitem #testcode{
+    border-right: 1px solid #7ad7c4;
+}

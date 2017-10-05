@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width">
+    <meta name="description" content="ego" />
+    <meta name="keywords" content="ego" />
+    <title>ego</title>
+    <link href="../../common/base.css" rel="stylesheet" />
+    <link href="../../pages/works/create.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="g-header">
+        <div class="logo">
+            <img src="../res/images/logo.png" alt="logo">
+            <span>/ 漫 画 学 园 /</span>
+        </div>
+        <div class="m-tabs" id="hdtabs">
+            <div class="menu">
+                <ul class="f-cb">
+                    <li><a href="/index">首页</a></li>
+                    <li><a href="#">作品</a></li>
+                    <li><a href="#">圈子</a></li>
+                    <li><a href="#">奇思妙想</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="search">
+            <form action="/search" id="search" method="GET">
+                <div class="u-search">
+                    <input type="text" name="keyword" id="keyword" placeholder="输入搜索内容">
+                    <button type="submit" class="u-icon u-icon-search u-icon-btn"></button>
+                </div>
+            </form>
+        </div>
+        <div id="user">
+            <div id="guest">
+                <button id="login" class="u-btn u-btn-primary u-btn-icon">
+                            <i class="u-icon u-icon-user"></i><span>登 录</span>
+                        </button>
+                <button id="register" class="u-btn u-btn-link">注 册</button>
+            </div>
+            <div class="m-user f-dn" id="userdropdown">
+                <div class="user_info">
+                    <span class="user_avatar"><img src="../res/images/touxiang.PNG" alt="头像"></span>
+                    <span>
+                            <div class="user_name" id="name">用户名</div>
+                            <span class="u-icon"></span>
+                    </span>
+                    <span class="u-icon u-icon-down"></span>
+                </div>
+                <ul class="user_list">
+                    <li>个人中心</li>
+                    <li>信 息</li>
+                    <li>设 置</li>
+                    <li id="logout">退出账号</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="g-body">
+        <form action="">
+            <div class="g-main">
+                <fieldset>
+                    <div class="form_head">
+                        <div>
+                            <label for="category">作品分类</label>
+                            <div class="work_class">
+                                <label>
+                                    <input type="radio" name="category" checked value="0">
+                                    <span class="u-btn">原创</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="category" value="1">
+                                    <span class="u-btn">临摹</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <label style="margin-bottom:25px">上传图片</label>
+                            <div class="work_upload">
+                                <div>
+                                    <label class="u-btn u-btn-primary">
+                                        选择图片上传
+                                        <input type="file" id="upload" name="file" accept="image/*" multiple>
+                                    </label>
+                                    <progress value="50" max="100"></progress>
+                                    <span>共 1 个文件，正在上传第 1 个，上传进度 50%</span>
+                                </div>
+                                <p class="message">提示：作品可以包含多张图片，一次选择多张图片，最多不超过10张（单张图片大小小于1M）</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="preview">
+                            <!-- 上传图片 -->
+                        <ul class="m-preview">
+                            <li class="item">
+                                <img src="../../res/images/list-1.jpg" alt="">
+                                <span class="u-btn">设为封面</span>
+                                <i class="u-icon u-icon-delete"></i>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 标签相关 -->
+                    <div class="tags">
+                        
+                    </div>
+                </fieldset>
+            </div>
+            <div class="g-side"></div>
+        </form>
+    </div>
+
+
+    <script src="../../common/js/util.js"></script>
+    <script src="../common/js/md5.js"></script>
+    <script src="../common/js/address_codes.js"></script>
+    <script src="../../pages/works/create.js"></script>
+    <script src="../../pages/modal.js"></script>
+</body>
+
+</html>
