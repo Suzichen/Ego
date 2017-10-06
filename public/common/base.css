@@ -679,8 +679,8 @@ a:hover {
     color: #7d7d7d;
 }
 
-.m-form-1 input[type="text"],
-.m-form-1 input[type="password"] {
+.m-form-1 input,
+.m-form-1 input {
     height: 37px;
     width: 100%;
     padding-left: 25px;

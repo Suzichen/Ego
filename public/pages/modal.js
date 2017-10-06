@@ -141,20 +141,30 @@
                 this.emit('register');
             }.bind(this))
         },
-        //信息栏
+        // 信息栏
         showMsg: function(nmsg) {
             if (!nmsg) {
-                _.addClass(this.error, 'f-dn')
+                _.addClass(this.error, 'f-dn');
+                this.btnDisabled();
             } else {
                 _.delClass(this.error, 'f-dn');
                 this.errMsg.innerHTML = nmsg;
+                this.btnDisabled(true);
             }
+        },
+        addInvalid: function(node, nmsg) {
+            this.showMsg(nmsg);
+            _.addClass(node, 'in-err');
         },
         // 更新信息
         updataMsg: function() {
-            this.node.addEventListener('input', function() {
+            this.nUsername.addEventListener('input', function() {
+                _.delClass(this.nUsername,'in-err');
                 this.showMsg();
-                this.btnDisabled();
+            }.bind(this));
+            this.nPassword.addEventListener('input',function() {
+                _.delClass(this.nPassword,'in-err');
+                this.showMsg();
             }.bind(this));
         },
         // 按钮禁用
@@ -168,16 +178,16 @@
             this.nUsername.addEventListener('blur', function() {
                 var mobile_rule = /^0?(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/;
                 if (this.nUsername.value.match(mobile_rule) == null) {
-                    this.showMsg('请输入正确的手机号!');
-                    this.btnDisabled(true);
-                    return;
+                    this.addInvalid(this.nUsername,'请输入正确的手机号!');
+                    return false;
+                } else {
+                    return true;
                 }
             }.bind(this));
             this.nUsername.addEventListener('invalid', function(e) {
                 e.preventDefault();
-                this.showMsg('请输入正确的手机号!');
-                this.btnDisabled(true);
-                this.focus();
+                this.addInvalid(this.nUsername,'请输入正确的手机号!');
+                this.nUsername.focus();
             }.bind(this))
         },
         // 密码验证
@@ -190,10 +200,11 @@
                 msg = '密码必须包含字母和数字!';
             }
             if (!!msg) {
-                this.showMsg(msg)
+                this.addInvalid(this.nPassword,msg);
                 this.nPassword.focus();
-                this.btnDisabled(true);
-                return;
+                return false;
+            } else {
+                return true;
             }
         },
         // 记住密码
@@ -206,8 +217,11 @@
             }
         },
         submit: function(e) {
-            this.isPsw(); //验证密码
             e.preventDefault(); //取消默认
+            if(!(this.isPsw()) || _.$('.in-err') ) {
+                return;
+            }
+            this.isPsw(); //验证密码
             this.btnDisabled(true);
             var data = {
                 username: this.nUsername.value.trim(),
@@ -512,7 +526,7 @@
             data.city = this.location[1];
             data.district = this.location[2];
             _.ajax({
-                url: '/api/registr',
+                url: '/api/register',
                 method: 'post',
                 ContentType: 'application/json',
                 data: data,
