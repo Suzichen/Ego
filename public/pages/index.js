@@ -2,7 +2,177 @@
     function App() {
 
     };
+    // 存用户信息
     App.user = {};
+    // 模板库
+    App.template = {
+        diamond: `
+            <ul class="section_cnt m-list f-cb">
+                <li><img src="../res/images/work1.png" alt="work1"></li>
+                <li><img src="../res/images/work2.png" alt="work2"></li>
+                <li><img src="../res/images/work3.png" alt="work3"></li>
+                <li><img src="../res/images/work4.png" alt="work4"></li>
+            </ul>
+        `,
+        star: `
+            <ul class="section m-list m-card f-cb" id="starList">
+                <!-- 动态渲染 -->
+            </ul>
+        `,
+        work: `
+            <ul class="section m-list m-list-1 f-cb">
+                <li><img src="../res/images/work5.png" alt="">
+                    <div>作品名称作品名称作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work5.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work5.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+            </ul>
+        `,
+        event: `
+            <div class="m-event">
+                <div class="content event-1">
+                    <span class="title-1">第五期 | 我是活动主题名称</span>
+                    <span class="date-1">7.23-8.21</span>
+                </div>
+                <div class="btns">
+                    <button class="u-btn u-btn-sm u-btn-primary">快来PK</button>
+                    <button class="u-btn u-btn-sm u-btn-primary">邀请小伙伴</button>
+                </div>
+            </div>
+            <div class="m-event">
+                <div class="content content-1 event-2">
+                    <img src="../res/images/event-2_title.jpg" alt="活动封面">
+                    <span class="title-2">第五期 | 我是活动主题名称</span>
+                    <span class="date-2">7.30-8.23</span>
+                    <div class="rules">
+                        我是活动规则我是活动规则我是活动规则我是活动规则 我是活动规则我是活动规则我是活动规则我是活动规则 我是活动规则我是活动规则我是活动规则我是活动规则
+                    </div>
+                </div>
+                <div class="btns">
+                    <button class="u-btn u-btn-sm u-btn-primary">快来PK</button>
+                    <button class="u-btn u-btn-sm u-btn-primary">邀请小伙伴</button>
+                </div>
+            </div>
+        `,
+        original: `
+            <ul class="section m-list m-list-2 f-cb">
+                <li><img src="../res/images/work7.png" alt="">
+                    <div>作品名称作品名称作品名称</div>
+                </li>
+                <li><img src="../res/images/work5.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work5.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+            </ul>
+        `,
+        fanfiction: `
+            <ul class="section m-list m-list-2 f-cb">
+                <li><img src="../res/images/work7.png" alt="">
+                    <div>作品名称作品名称作品名称</div>
+                </li>
+                <li><img src="../res/images/work5.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work5.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+            </ul>
+        `,
+        copy: `
+            <ul class="section m-list m-list-2 f-cb">
+                <li><img src="../res/images/work7.png" alt="">
+                    <div>作品名称作品名称作品名称</div>
+                </li>
+                <li><img src="../res/images/work5.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work5.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+                <li><img src="../res/images/work6.png" alt="">
+                    <div>作品名称</div>
+                </li>
+            </ul>
+        `
+    }
     window.App = App;
     window._ = _;
 })(util)
@@ -90,7 +260,7 @@ var followConfig = [{
     App.Search = Search;
 }(window.App)
 //用户组件
-! function(App) {
+!function(App) {
     function UserInfo() {
         //登录注册
         this.nLogin = document.getElementById('login');
@@ -131,7 +301,7 @@ var followConfig = [{
     App.UserInfo = UserInfo;
 }(window.App)
 // banner
-! function(App) {
+!function(App) {
     var template = `<div class="m-slider"></div>`;
 
     function Slider(options) {
@@ -221,7 +391,7 @@ var followConfig = [{
     App.Slider = Slider;
 }(window.App)
 // 明日之星
-! function(App) {
+!function(App) {
     function StarList(container, data) {
         this.listInfo = data;
         this.container = container;
@@ -320,7 +490,7 @@ var followConfig = [{
     App.StarList = StarList;
 }(window.App)
 // 导航栏
-! function(App) {
+!function(App) {
     var nav = {
         init: function(options) {
             options = options || {};
@@ -389,7 +559,7 @@ var followConfig = [{
     App.nav = nav;
 }(window.App)
 // 页面
-! function(App) {
+!function(App) {
     var page = {
         init: function() {
             this.initNav();
@@ -403,10 +573,12 @@ var followConfig = [{
                 ],
                 interval: 5000
             });
+            this.initSection();
             this.initStarList();
             this.sideTab = new App.Tabs({
                 container: _.$("#sidetabs")
             });
+            this.initMyWork();
         },
         initNav: function(argument) {
             App.nav.init({
@@ -416,6 +588,57 @@ var followConfig = [{
                         this.initStarList();
                     }
                 }.bind(this)
+            });
+        },
+        initSection: function() {
+            // 精选推荐
+            new App.Section({
+                icon: 'diamond',
+                title: '精选推荐',
+                cont: App.template.diamond,
+                container: _.$('.g-main')
+            });
+            // 明日之星
+            new App.Section({
+                icon: 'star',
+                title: '明日之星',
+                cont: App.template.star,
+                container: _.$('.g-main')
+            });
+            // 最新作品
+            new App.Section({
+                icon: 'work',
+                title: '最新作品',
+                cont: App.template.work,
+                container: _.$('.g-main')
+            });
+            // 活动进行时
+            new App.Section({
+                icon: 'event',
+                title: '活动进行时',
+                cont: App.template.event,
+                container: _.$('.g-main')
+            });
+            // 我们都爱原创
+            new App.Section({
+                icon: 'original',
+                title: '我们都爱原创',
+                cont: App.template.original,
+                container: _.$('.g-main')
+            });
+            // 我们都是同人粉
+            new App.Section({
+                icon: 'fanfiction',
+                title: '我们都是同人粉',
+                cont: App.template.fanfiction,
+                container: _.$('.g-main')
+            });
+            // 看谁临摹得最好
+            new App.Section({
+                icon: 'copy',
+                title: '看谁临摹得最好',
+                cont: App.template.copy,
+                container: _.$('.g-main')
             });
         },
         initStarList: function() {
@@ -437,6 +660,18 @@ var followConfig = [{
                     }
                 }.bind(this)
             })
+        },
+        initMyWork: function() {
+            var myWorkHandler = function() {
+                if(App.user.id === undefined) {
+                    App.nav.showLogin();
+                    return;
+                } else {
+                    window.location.href = "works";
+                }
+            }.bind(this)
+            var myWork = _.$('.mywork');
+            myWork.addEventListener('click',myWorkHandler);
         }
 
     };
@@ -444,4 +679,28 @@ var followConfig = [{
         page.init();
     });
     App.page = page;
+}(window.App)
+// Section组件
+!function(App) {
+    function Section(options) {
+        _.extend(this,options);
+        this.init();
+    }
+    _.extend(Section.prototype,{
+        init: function() {
+            var html = `
+                <div class="m-section">
+                    <h4 class="section_head">
+                        <i class="u-icon u-icon-${this.icon}"></i>/${this.title}/
+                        <span class="section_more">更多
+                            <i class="u-icon u-icon-moretight"></i>
+                        </span>
+                    </h4>
+                    ${this.cont}
+                </div>
+            `;
+            this.container.appendChild(_.tempToNode(html));
+        }
+    })
+    App.Section = Section;
 }(window.App)

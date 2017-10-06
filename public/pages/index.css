@@ -429,6 +429,7 @@
 
 .m-section.mywork {
     margin-top: -10px;
+    cursor: pointer;
 }
 
 .section_head_side .cover {
