@@ -464,27 +464,36 @@
             if (!!msg) {
                 this.addInvalid(this.nPassword, msg);
                 this.nPassword.focus();
+                return false;
+            } else {
+                return true;
             }
         },
         // 性别
         isSex: function() {
-            if (!this.nSex.value) {
+            if (!!this.nSex.value) {
+                return true;
+            } else {
                 this.showMsg('请选择性别');
+                return false
             }
         },
         // 同意条款
         isAgreeClause: function() {
             var clause = this.registerform.clause;
-            if (!this.nClause.checked) {
+            if (!!this.nClause.checked) {
+                return true;
+            } else {
                 this.showMsg('请先阅读条款');
-                return
+                return false;
             }
         },
         submit: function(event) {
             event.preventDefault();
-            this.isAgreeClause();
-            this.isSex();
-            this.isPsw();
+            if(!(!!this.isPsw() && !!this.isSex() && !!this.isAgreeClause()) || _.$('.in-err') ) {
+                this.btnDisabled(true);
+                return;
+            }
             this.btnDisabled(true);
             var data = {
                 username: this.nPhone.value.trim(),
@@ -503,7 +512,7 @@
             data.city = this.location[1];
             data.district = this.location[2];
             _.ajax({
-                url: '/api/register',
+                url: '/api/registr',
                 method: 'post',
                 ContentType: 'application/json',
                 data: data,
