@@ -189,7 +189,7 @@ var followConfig = [{
             class: 'z-flowed',
         }
     ]
-    // 选项卡组件
+// 选项卡组件
 !function(App) {
     var tabsTrack = `
         <div class="tabs_track">
@@ -240,7 +240,7 @@ var followConfig = [{
     })
     App.Tabs = Tabs;
 }(window.App)
-    //搜索
+// 搜索
 !function(App) {
     function Search(container) {
         this.nForm = container;
@@ -259,7 +259,7 @@ var followConfig = [{
     })
     App.Search = Search;
 }(window.App)
-//用户组件
+// 用户组件
 !function(App) {
     function UserInfo() {
         //登录注册
@@ -670,8 +670,10 @@ var followConfig = [{
                     window.location.href = "works";
                 }
             }.bind(this)
-            var myWork = _.$('.mywork');
+            var myWork = _.$('.mywork'),
+                tabMyWork = _.$('#link-my-work');
             myWork.addEventListener('click',myWorkHandler);
+            tabMyWork.addEventListener('click',myWorkHandler);
         }
 
     };

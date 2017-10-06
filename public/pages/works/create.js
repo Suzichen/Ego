@@ -80,47 +80,6 @@ var iconConfig = [
     })
     App.Search = Search;
 }(window.App)
-//用户组件
-!function(App) {
-    function UserInfo() {
-        //登录注册
-        this.nLogin = document.getElementById('login');
-        this.nRegister = document.getElementById('register');
-
-        this.init();
-    }
-    _.extend(UserInfo.prototype, {
-        init: function() {
-            this.nLogin.addEventListener('click', function() {
-                // 解决弹出多个弹窗bug
-                if (document.getElementsByClassName('m-modal')[0]) return;
-                this.showLogin();
-
-                this.modal.on('register', function() {
-                    this.modal.hide();
-                    this.nRegister.click();
-                }.bind(this));
-
-            }.bind(this));
-
-            this.nRegister.addEventListener('click', function() {
-                if (document.getElementsByClassName('m-modal')[0]) return;
-                //注册弹窗
-                new App.RegisterModal();
-            }.bind(this))
-        },
-        showLogin: function() {
-            this.modal = new App.LoginModal();
-
-            this.modal.on('ok', function(data) {
-                App.user = data;
-                App.nav.initUser.call(this, data);
-                this.loginCallback && this.loginCallback(data);
-            }.bind(this));
-        }
-    })
-    App.UserInfo = UserInfo;
-}(window.App)
 // 导航栏
 !function(App) {
     var nav = {
@@ -133,16 +92,10 @@ var iconConfig = [
                 index: 1
             });
             this.search = new App.Search(_.$('#search'));
-            // 绑定登录，注册，登出事件
-            this.userInfo = new App.UserInfo();
             this.initLoginStatus();
         },
         getTabIndex: function() {
 
-        },
-        showLogin: function() {
-            var userInfo = new App.UserInfo;
-            userInfo.showLogin();
         },
         initLoginStatus: function() {
             _.ajax({
@@ -152,8 +105,11 @@ var iconConfig = [
                 callback: function(res) {
                     res = JSON.parse(res);
                     if (res.code === 200) {
+                        App.user = res.result;
                         this.initUser(res.result);
                         this.loginCallback(res.result);
+                    } else {
+                        window.location.href = "../index";
                     }
                 }.bind(this)
             })
@@ -166,9 +122,6 @@ var iconConfig = [
             this.nName = document.getElementById('name');
             this.nSexIcon = this.nUser.getElementsByClassName('u-icon')[0];
             this.nLogout = document.getElementById('logout');
-            // 隐藏登录注册按钮，显示用户信息
-            _.addClass(this.nGuest, 'f-dn');
-            _.delClass(this.nUser, 'f-dn');
             //设置用户姓名和性别icon
             this.nName.innerText = data.nickname;
             _.addClass(this.nSexIcon, iconConfig[data.sex])
@@ -178,7 +131,7 @@ var iconConfig = [
                     method: 'post',
                     url: '/api/logout',
                     callback: function() {
-                        window.location.href = "index"
+                        window.location.href = "../index";
                     },
                     data: this.data
                 })
@@ -489,9 +442,7 @@ var iconConfig = [
         initNav: function(argument) {
             App.nav.init({
                 login: function(data) {
-                    if (!App.user.username) {
-                        App.user = data;
-                    }
+                    // 获取用户信息后的回调
                 }.bind(this)
             });
         }
