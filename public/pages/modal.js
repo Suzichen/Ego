@@ -811,7 +811,7 @@
         getDayData: function() {
             // 判断月份
             var selected_m = this.selectList[1].body.getElementsByClassName('z-select')[0];
-            var month = selected_m.dataset.index;
+            var month = parseInt(selected_m.dataset.index) + 1;
             var days;
             if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
                 days = 31;
@@ -820,7 +820,7 @@
             } else {
                 // 判断平闰年
                 var selected_y = this.selectList[0].body.getElementsByClassName('z-select')[0];
-                var year = selected_y.dataset.index;
+                var year = selected_y.innerText.substring(0,4);
                 if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) { // 判断是否为润二月
                     days = 29;
                 } else {
