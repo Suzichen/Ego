@@ -245,7 +245,7 @@ var iconConfig = [
         loadList: function(options) {
             _.ajax({
                 data: options.query,
-                url: '../../res/datatest/works.json',
+                url: '/api/works',
                 method: 'get',
                 ContentType: 'application/json',
                 callback: function(data) {

@@ -3,6 +3,7 @@
 
     };
     App.user = {};
+    App.imgData = [ ];
     window.App = App;
     window._ = _;
 })(util)
@@ -142,155 +143,162 @@ var iconConfig = [
 }(window.App)
 // 作品上传组件
 // 作品预览组件
-// !function(App) {
-//     function UploadImg() {
+!function(App) {
+    function UploadImg() {
 
-//         this.fileInput = _.$('#upload');
-//         this.progressBar = _.$('progress');
+        this.fileInput = _.$('#upload');
+        this.progressBar = _.$('progress');
 
-//         this.maxSize = 1024 * 1024;
+        this.maxSize = 1024 * 1024;
 
-//         this.changeHandler();
-//     }
-//     _.extend(UploadImg.prototype,{
-//         // 监听fileInput事件
-//         changeHandler: function() {
-//             var changeHandler = function(e) {
-//                 var files = [].slice.call(e.target.files,0);
-//                 var sizeExceedFiles = [];
-//                 var sizeOKFiles = [];
-//                 // 遍历files,如果大于maxsize，放入exceedfiles数组；
-//                 // 否则放入sizeOKfiles数组
-//                 files.forEach(function(item) {
-//                     item.size > this.maxSize
-//                         ? sizeExceedFiles.push(item)
-//                         : sizeOKFiles.push(item);
-//                 }.bind(this))
-//                 this.files = sizeOKFiles;
-//                 // 如果exceedfiles数组中有文件，进行弹窗提示
-//                 if(!!sizeExceedFiles.length) this.showMsg(sizeExceedFiles);
-//                 this.uploadFiles(sizeOKFiles);
-//             }.bind(this);
-//             this.fileInput.addEventListener('change',changeHandler);
-//         },
-//         // 文件过大提示
-//         showMsg: function(badfiles) {
-//             console.log(badfiles)
-//             var msg = new App.Modal({
-//                 title: '提示信息'
-//             })
-//             var tpl = `
-//             <br><br>
-//             文件"${badfiles[0].name}"超过1M，无法上传
-//             `;
-//             msg.show(tpl);
-//         },
-//         // 上传文件
-//         uploadFiles: function(files) {
-//             var progressInfo;   //进度条后边的提示信息
-//             // 计算所有文件的总长度
-//             this.initProgress(files);
-//             // 更改样式，让用户知道正在上传文件
-//             _.addClass(this.fileInput.parentNode,'z-disabled');
+        this.changeHandler();
+    }
+    _.extend(UploadImg.prototype,{
+        // 监听fileInput事件
+        changeHandler: function() {
+            var changeHandler = function(e) {
+                var files = [].slice.call(e.target.files,0);
+                var sizeExceedFiles = [];
+                var sizeOKFiles = [];
+                // 遍历files,如果大于maxsize，放入exceedfiles数组；
+                // 否则放入sizeOKfiles数组
+                files.forEach(function(item) {
+                    item.size > this.maxSize
+                        ? sizeExceedFiles.push(item)
+                        : sizeOKFiles.push(item);
+                }.bind(this))
+                this.files = sizeOKFiles;
+                // 如果exceedfiles数组中有文件，进行弹窗提示
+                if(!!sizeExceedFiles.length) this.showMsg(sizeExceedFiles);
+                this.uploadFiles(sizeOKFiles);
+            }.bind(this);
+            this.fileInput.addEventListener('change',changeHandler);
+        },
+        // 文件过大提示
+        showMsg: function(badfiles) {
+            var msg = new App.Modal({
+                title: '提示信息'
+            })
+            var tpl = `
+            <br><br>
+            文件"${badfiles[0].name}"超过1M，无法上传
+            `;
+            msg.show(tpl);
+        },
+        // 上传文件流程
+        uploadFiles: function(files) {
+            this.sizeOKFiles = files;
+            this.uploadNth = 0;
+            this.progressInfo = _.$('#progressInfo');
+            // 计算所有文件的总长度
+            this.initProgress(files);
+            // 更改样式，让用户知道正在上传文件
+            _.addClass(this.fileInput.parentNode,'z-disabled');
 
-//             var readyStateHandler = function(e) {
-//                 if(this.readyState === this.DONE) {
-//                     // 将图片添加到图片列表中
-//                     // 更新uploadingFileIndex的值
-//                     this.upload();
-//                 }
-//             };
-//             this.upload();
-//         },
-//         // 初始化进度条
-//         initProgress: function(files) {
-//             this.totalSize = 0;
-//             files.forEach(function(item) {
-//                 this.totalSize += item.size;
-//             }.bind(this));
-//             // 设置progressBar的value(0)和max(totalsize)
-//             this.progressBar.value = 0;
-//             this.progressBar.max = this.totalSize;
-//         },
-//         // 多文件依次上传
-//         upload: function() {
-//             // 定义一个数组，保存所有的请求对象
-//             var uploadRequests = [];
-//             var progressHandler = this.progressHandler;
-//             // var resolve = this.resolve;
-//             this.files.forEach(function(file) {
-//                 uploadRequests.push(
-//                     new Promise(function(resolve,reject) {
-//                         var fd = new FormData();
-//                         fd.append('file',file,file.name);
-//                         console.log(file)   // 一个图片文件
-//                         console.log(file.name)// xxxx.jpg
-//                         var xhr = new XMLHttpRequest();
-//                         xhr.addEventListener('readystatechange',function() {
-//                             if(this.readyState === this.DONE) {
-//                                 // resolve(JSON.parse(this.responseText).result);
-//                                 resolve(this.responseText);
-//                             }
-//                         });
-//                         xhr.upload.addEventListener('progress',progressHandler,false);
-//                         xhr.open('POST','/api/works?upload');
-//                         xhr.send(fd);   // 504 or 500
-//                     })
-//                 );
-//             });
-//             Promise.all(uploadRequests).then(function(data) {
-//                 // 上传完毕，恢复按钮状态
-//                 console.log(data)
-//                 _.delClass(this.fileInput.parentNode,'z-disabled')
-//             }.bind(this))
-//         },
-//         resolve: function(data) {
-//             console.log(data)
-//         },
-//         progressHandler: function(e) {
-//             if(e.lengthComputable) {
-//                 console.log(e.total);
-//                 console.log(e.loaded)
-//                 // 更新progressBar的value为getLoadedSize()
-//                 // 设置progressInfo, 共X个文件，正在上传y个，上传进度z%...
-//             }
-//         },
-//         getLoadedSize: function() {
-//             // 计算已经上传的资源总长度
-//         },
-//         // 一次性上传多张
-//         /* upload2: function() {
-//             var fd = new FormData();
-//             files.forEach(function(file) {
-//                 fd.append('file',file,file.name);
-//             })
-//             var xhr = new XMLHttpRequest();
-//             xhr.addEventListener('readystatechange',function() {
-//                 if(this.readyState === this.DONE) {
-//                     var pictures = JSON.parse(this.responseText).result;
-//                     // 上传单张的时候,pictures是一个对象，否则它是一个数组
-//                 }
-//             });
-//             xhr.upload.addEventListener('progress',progressHandler,false);
-//             xhr.open('POST','/api/works?upload');
-//             xhr.send(fd); 
-//         }, */
-//         // 拖拽上传
-//         drop: function() {
-//             var drop = _.$('.drop');
-//             drop.addEventListener('dragover',function(e) {
-//                 e.preventDefault();
-//                 _.addClass(this,'over');
-//             });
-//             drop.addEventListener('drop',function(e) {
-//                 e.preventDefault;
-//                 _.delClass(this,'over');
-//                 console.log(e.dataTransfer.files);
-//             })
-//         }
-//     })
-//     App.UploadImg = UploadImg;
-// }(window.App)
+            var readyStateHandler = function(e) {
+                if(this.readyState === this.DONE) {
+                    // 将图片添加到图片列表中
+                    // 更新uploadingFileIndex的值
+                    this.upload();
+                }
+            };
+            this.upload();
+        },
+        // 初始化进度条
+        initProgress: function(files) {
+            this.totalSize = 0;
+            files.forEach(function(item) {
+                this.totalSize += item.size;
+            }.bind(this));
+            // 设置progressBar的value(0)和max(totalsize)
+            _.delClass(this.progressBar,'f-dn')
+            this.progressBar.value = 0;
+            this.progressBar.max = this.totalSize;
+        },
+        // 多文件依次开始上传
+        upload: function() {
+            // 定义一个数组，保存所有的请求对象
+            var uploadRequests = [];
+            var progressHandler = this.progressHandler.bind(this);
+
+            this.files.forEach(function(file) {
+                uploadRequests.push(
+                    new Promise(function(resolve,reject) {
+                        var fd = new FormData();
+                        fd.append('file',file,file.name);
+                        var xhr = new XMLHttpRequest();
+                        xhr.addEventListener('readystatechange',function() {
+                            if(this.readyState === this.DONE) {
+                                // 上传成功执行回调 
+                                resolve(this.responseText);
+                            }
+                        });
+                        // 上传过程中监听事件 
+                        xhr.upload.addEventListener('progress',progressHandler,false);
+                        xhr.open('POST','/api/works?upload');
+                        xhr.send(fd);
+                    })
+                );
+            });
+            Promise.all(uploadRequests).then(function(data) {
+                // 上传完毕，恢复按钮状态
+                _.delClass(this.fileInput.parentNode,'z-disabled');
+                // 添加到预览列表
+                data.forEach(function(item) {
+                    var imgData = {};
+                    var data = JSON.parse(item).result;
+                    console.log(data)
+                    imgData.id = data.id;
+                    imgData.name = data.name;
+                    imgData.url = data.url;
+                    imgData.position = 123;   //?
+                    imgData.worksId = data.worksId; //?
+                    imgData.creatorId = data.creator.id; //?
+                    imgData.createTime = data.createTime;
+                    imgData.updateTime = data.updateTime;
+                    App.imgData.push(imgData);
+                })
+                this.appendPreview();
+            }.bind(this))
+        },
+        // 更新进度条及提示信息 
+        progressHandler: function(e) {
+            if(e.lengthComputable) {
+                // 更新progressBar的value为getLoadedSize()
+                this.progressBar.value += e.loaded;
+                // 设置progressInfo, 共X个文件，正在上传y个，上传进度z%...
+                this.uploadNth ++;
+                // 上传进度
+                var percent = parseInt((this.progressBar.value / this.progressBar.max) * 100);
+                var html = `
+                    <span>共 ${this.sizeOKFiles.length} 个文件，正在上传第 ${this.uploadNth} 个，上传进度 ${percent}%...</span>
+                `;
+                this.progressInfo.innerHTML = html;
+            }
+            
+        },
+        // 作品预览
+        appendPreview: function() {
+            console.log(1)
+        },
+        /* // 拖拽上传
+        drop: function() {
+            // var drop = _.$('.drop');
+            var drop = _.$('#preview');
+            console.log(drop)
+            drop.addEventListener('dragover',function(e) {
+                e.preventDefault(); console.log(1)
+                _.addClass(this,'over');
+            });
+            drop.addEventListener('drop',function(e) {
+                e.preventDefault;
+                _.delClass(this,'over');    console.log(2)
+                console.log(e.dataTransfer.files);
+            })
+        } */
+    })
+    App.UploadImg = UploadImg;
+}(window.App)
 // 标签组件
 !function(App) {
     function Tag(options) {
@@ -458,85 +466,4 @@ new App.Tag({
     tags: ['Ego','标签组件']
 })
 
-// new App.UploadImg();
-
-var fileInput = _.$('#upload');
-var progressBar = _.$('progress');
-function changeHandler(e) {
-    var files = e.target.files;
-    var sizeExceedFiles = [];
-    var sizeOKFiles = [];
-    var maxSize = 1024 * 1024;
-    // 遍历files,如果大于maxsize，放入exceedfiles数组；
-    // 否则放入sizeOKfiles数组
-    [].slice.call(files).forEach(function(item) {
-        item.size > maxSize
-            ? sizeExceedFiles.push(item)
-            : sizeOKFiles.push(item);
-    }.bind(this))
-    
-    uploadFiles(sizeOKFiles);
-}
-fileInput.addEventListener('change',changeHandler);
-
-function uploadFiles(files) {
-    var progressInfo;   //进度条后边的提示信息
-    // 计算所有文件的总长度
-    initProgress(files);
-    // 更改样式，让用户知道正在上传文件
-    _.addClass(this.fileInput.parentNode,'z-disabled');
-
-    var progressHandler = function(e) {
-        if(e.lengthComputable) {
-            // console.log(e.total);
-            // console.log(e.loaded)
-            // 更新progressBar的value为getLoadedSize()
-            // 设置progressInfo, 共X个文件，正在上传y个，上传进度z%...
-        }
-    }
-
-    var readyStateHandler = function(e) {
-        if(this.readyState === this.DONE) {
-            // 将图片添加到图片列表中
-            // 更新uploadingFileIndex的值
-            upload();
-        }
-    };
-    upload();
-
-    var uploadRequests = [];
-    files.forEach(function(file) {
-        uploadRequests.push(
-            new Promise(function(resolve,reject) {
-                var fd = new FormData();
-                fd.append('file',file,file.name);
-                var xhr = new XMLHttpRequest();
-                xhr.withCredentials = true;
-                xhr.addEventListener('readystatechange',function() {
-                    if(this.readyState === this.DONE) {
-                        resolve(this.responseText);
-                    }
-                });
-                xhr.upload.addEventListener('progress',progressHandler,false);
-                xhr.open('POST','/api/works?upload');
-                xhr.send(fd);
-                console.log(fd.get('file'))
-            })
-        )
-    });
-    Promise.all(uploadRequests).then(function(data) {
-        console.log(data)
-    })
-}
-function initProgress(files) {
-    var totalSize = 0;
-    files.forEach(function(item) {
-        totalSize += item.size;
-    });
-    // 设置progressBar的value(0)和max(totalsize)
-    progressBar.value = 0;
-    progressBar.max = totalSize;
-}
-function upload() {
-
-}
+new App.UploadImg();
