@@ -3,7 +3,13 @@
 
     };
     App.user = {};
-    App.imgData = [ ];
+    App.imgData = {
+        data: [],
+        coverImg: {
+            id: null,
+            url: ''
+        }
+    };
     window.App = App;
     window._ = _;
 })(util)
@@ -243,22 +249,46 @@ var iconConfig = [
             Promise.all(uploadRequests).then(function(data) {
                 // 上传完毕，恢复按钮状态
                 _.delClass(this.fileInput.parentNode,'z-disabled');
-                // 添加到预览列表
+                // 保存图片信息
+                var num = 0;
                 data.forEach(function(item) {
                     var imgData = {};
                     var data = JSON.parse(item).result;
-                    console.log(data)
                     imgData.id = data.id;
-                    imgData.name = data.name;
+                    imgData.name = data.name;   
                     imgData.url = data.url;
-                    imgData.position = 123;   //?
-                    imgData.worksId = data.worksId; //?
-                    imgData.creatorId = data.creator.id; //?
+                    imgData.position = num;   
+                    imgData.worksId = data.worksId; 
+                    imgData.creatorId = data.creatorId; 
                     imgData.createTime = data.createTime;
                     imgData.updateTime = data.updateTime;
-                    App.imgData.push(imgData);
-                })
-                this.appendPreview();
+                    // 添加到预览列表
+                    this.appendPreview(imgData);
+                    // 添加图片信息到缓存
+                    App.imgData.data.push(imgData);
+                    num++;
+                }.bind(this));
+                // 上传测试
+                var data = {
+                    "name": "作品名称",
+                    "tag": "少女系,萌神,萝莉,未来日记",
+                    "coverId": App.imgData.coverImg.id || App.imgData.data[0].id,
+                    "coverUrl": App.imgData.coverImg.url || App.imgData.data[0].url,
+                    "pictures": App.imgData.data,
+                    "category": 0,
+                    "description": "作品",
+                    "privilege": 0,
+                    "authorization": 0
+                };
+                // _.ajax({
+                //     method: 'post',
+                //     url: '/api/works',
+                //     ContentType: 'application/json',
+                //     data: data,
+                //     callback: function(data) {
+                //         console.log(data)
+                //     }
+                // })
             }.bind(this))
         },
         // 更新进度条及提示信息 
@@ -278,10 +308,28 @@ var iconConfig = [
             
         },
         // 作品预览
-        appendPreview: function() {
-            console.log(1)
+        appendPreview: function(data) {
+            var data = data;
+            var html = _.tempToNode(
+                `
+                <li class="item">
+                    <img src=${data.url} alt="作品预览">
+                    <span class="u-btn f-setcover">设为封面</span>
+                    <i class="u-icon u-icon-delete"></i>
+                </li>`
+            );
+            _.$('.m-preview').appendChild(html);
+            // 设置设为封面事件
+            _.$('.f-setcover',html).addEventListener('click',function() {
+                this.setCoverImg(data);
+            }.bind(this));
         },
-        /* // 拖拽上传
+        // 设置封面
+        setCoverImg: function(data) {
+            App.imgData.coverImg.id = data.id;
+            App.imgData.coverImg.url = data.url;
+        }
+        /* // 拖拽上传示例
         drop: function() {
             // var drop = _.$('.drop');
             var drop = _.$('#preview');

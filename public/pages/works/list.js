@@ -249,6 +249,7 @@ var iconConfig = [
                 method: 'get',
                 ContentType: 'application/json',
                 callback: function(data) {
+                    console.log(data)
                     options.callback(data);
                 }
             })

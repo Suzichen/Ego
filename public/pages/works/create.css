@@ -21,12 +21,10 @@
     width: 770px;
     overflow: hidden;
     margin-right: 12px;
-    background-color: #d472e4;
 }
 
 .g-side {
     flex: 1;
-    background-color: limegreen;
 }
 
 .logo {
@@ -38,6 +36,10 @@
     display: table-cell;
     vertical-align: middle;
     cursor: default;
+}
+
+.g-body form {
+    display: flex;
 }
 
 .form_head {
@@ -206,6 +208,45 @@
     border: 3px dashed #cc7832;
 }
 
+/* 作品详情 */
+.works_detail {
+    padding: 20px ;
+    padding-left: 180px;
+    background-color: #fff;
+}
+
+.works_detail>.u-formitem {
+    margin: 10px;
+}
+
+.works_detail label {
+    position: relative;
+    vertical-align: top;
+    top: 10px;
+}
+
+.works_detail input {
+    height: 37px;
+    margin: 0;
+    padding: 5px;
+    line-height: 37px;
+    border: 1px solid #7ad7c4;
+    text-align: left;
+    font-size: 1em;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.works_detail textarea {
+    height: 100px;
+    width: 400px;
+    margin: 0;
+    padding: 5px;
+    border: 1px solid #7ad7c4;
+    text-align: left;
+    font-size: 1em;
+    box-sizing: border-box;
+}
 
 /* 标签组件/推荐标签组件 */
 .m-tag,
@@ -247,4 +288,11 @@
 
 .m-tag .tag-add.focused span {
     display: none;
+}
+
+/* 侧栏 */
+.g-side fieldset {
+    margin-left: 12px;
+    border: 1px solid #dedfdf;
+    background-color: #f7f8f8;
 }

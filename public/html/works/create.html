@@ -87,30 +87,43 @@
                             </div>
                         </div>
                     </div>
+                    <!-- 上传预览 -->
                     <div id="preview">
                             <!-- 上传图片 -->
                         <ul class="m-preview">
-                            <li class="item">
-                                <img src="../../res/images/list-1.jpg" alt="">
-                                <span class="u-btn">设为封面</span>
-                                <i class="u-icon u-icon-delete"></i>
-                            </li>
+                            <!-- 动态获取 -->
                         </ul>
                     </div>
-                    <!-- 标签相关 -->
-                    <div class="tags">
-                        
+                    <!-- 作品详情 -->
+                    <div class="works_detail">
+                        <div class="u-formitem">
+                            <label for="works-name">作品名称</label>
+                            <input type="text" name="works-name" id="works-name">
+                            <span>错误信息</span>
+                        </div>
+                        <div class="remark u-formitem">
+                            <label for="works-remark">作品说明</label>
+                            <textarea></textarea>
+                        </div>
+                        <!-- 标签相关 -->
+                        <div class="tags">
+                            
+                        </div>
+                        <button class="u-btn u-btn-primary">创建</button>
                     </div>
                 </fieldset>
             </div>
-            <div class="g-side"></div>
+            <div class="g-side">
+                <fieldset>
+                    sdsfs
+                </fieldset>
+            </div>
         </form>
     </div>
 
 
     <script src="../../common/js/util.js"></script>
     <script src="../../common/js/md5.js"></script>
-    <script src="../../common/js/address_codes.js"></script>
     <script src="../../pages/works/create.js"></script>
     <script src="../../pages/modal.js"></script>
 </body>
