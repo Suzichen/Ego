@@ -702,12 +702,12 @@ a:hover {
 }
 
 .u-checkbox input[type="checkbox"],
-.sexcheck input[type="radio"] {
+.u-radiobox input[type="radio"] {
     display: none;
 }
 
 .u-checkbox .u-icon-checkboxchecked,
-.sexcheck .u-icon-radiochecked {
+.u-radiobox .u-icon-radiochecked {
     display: none;
 }
 
@@ -725,7 +725,7 @@ a:hover {
     background-position: 10px 10px;
 }
 
-.sexcheck input[type="radio"]~.u-icon-radio {
+.u-radiobox input[type="radio"]~.u-icon-radio {
     display: inline-block;
     position: relative;
     top: 2px;
@@ -750,7 +750,7 @@ a:hover {
     background-position: -3px -318px;
 }
 
-.sexcheck input[type="radio"]:checked~.u-icon-radiochecked {
+.u-radiobox input[type="radio"]:checked~.u-icon-radiochecked {
     display: inline-block;
     position: relative;
     top: 2px;
@@ -758,11 +758,11 @@ a:hover {
     height: 13px;
     border: 1px solid #5ed0ba;
     border-radius: 50%;
-    background-position: -3px -364px;
+    background-position: -4px -364px;
 }
 
 .u-checkbox input[type="checkbox"]:checked~.u-icon-checkbox,
-.sexcheck input[type="radio"]:checked~.u-icon-radio {
+.u-radiobox input[type="radio"]:checked~.u-icon-radio {
     display: none;
 }
 
@@ -802,7 +802,7 @@ a:hover {
     background: #fff;
 }
 
-.u-formitem .sexcheck {
+.u-formitem .u-radiobox {
     display: flex;
     padding: 0 60px;
     margin: 0;

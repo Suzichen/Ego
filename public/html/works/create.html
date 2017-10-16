@@ -55,7 +55,7 @@
         </div>
     </div>
     <div class="g-body">
-        <form action="">
+        <form>
             <div class="g-main">
                 <fieldset>
                     <div class="form_head">
@@ -98,24 +98,51 @@
                     <div class="works_detail">
                         <div class="u-formitem">
                             <label for="works-name">作品名称</label>
-                            <input type="text" name="works-name" id="works-name">
-                            <span>错误信息</span>
+                            <input type="text" name="works_name" id="works_name">
+                            <span class="u-error f-dn"></span>
                         </div>
                         <div class="remark u-formitem">
                             <label for="works-remark">作品说明</label>
-                            <textarea></textarea>
+                            <textarea name="works_info" id="works_info"></textarea>
                         </div>
                         <!-- 标签相关 -->
                         <div class="tags">
                             
                         </div>
-                        <button class="u-btn u-btn-primary">创建</button>
+                        <button class="u-btn u-btn-primary" id="upload_btn">创建</button>
                     </div>
                 </fieldset>
             </div>
             <div class="g-side">
                 <fieldset>
-                    sdsfs
+                    <div>权限设置</div>
+                    <div class="u-radiobox">
+                        <label for="all">
+                            <input type="radio" id="all" name="privilege" value="0" checked>
+                            <i class="u-icon u-icon-radio"></i>
+                            <i class="u-icon u-icon-radiochecked"></i>
+                            <span>所有人可见</span>
+                        </label>
+                    </div>
+                    <div class="u-radiobox">
+                        <label for="follower">
+                            <input type="radio" id="follower" name="privilege" value="1">
+                            <i class="u-icon u-icon-radio"></i>
+                            <i class="u-icon u-icon-radiochecked"></i>
+                            <span>关注者/粉丝可见</span>
+                        </label>
+                    </div>
+                    <div class="u-radiobox">
+                        <label for="myself">
+                            <input type="radio" id="myself" name="privilege" value="2">
+                            <i class="u-icon u-icon-radio"></i>
+                            <i class="u-icon u-icon-radiochecked"></i>
+                            <span>仅自己可见</span>
+                        </label>
+                    </div>
+                    <div class="authorization">
+                        <div>作品授权</div>
+                    </div>
                 </fieldset>
             </div>
         </form>

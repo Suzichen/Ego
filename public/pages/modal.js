@@ -289,7 +289,7 @@
                 <!-- 性别 -->
                 <div class="u-formitem">
                     <label for="sex" class="formitem_tt">性别</label>
-                    <div class="sexcheck">
+                    <div class="u-radiobox">
                         <div>
                         <label for="boy">
                             <input type="radio" name="sex" id="boy" value="0">

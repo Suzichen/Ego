@@ -40,6 +40,7 @@
 
 .g-body form {
     display: flex;
+    width: 100%;
 }
 
 .form_head {
@@ -292,7 +293,63 @@
 
 /* 侧栏 */
 .g-side fieldset {
+    width: 100%;
     margin-left: 12px;
+    margin-right: 54px;
+    padding-top: 26px;
+    padding-left: 15px;
+    padding-bottom: 43px;
     border: 1px solid #dedfdf;
     background-color: #f7f8f8;
+}
+
+.g-side div.u-radiobox {
+    margin: 10px auto;
+}
+
+.g-side fieldset>div:first-child {
+    margin-bottom: 20px;
+}
+
+.g-side .authorization {
+    margin-top: 40px;
+}
+
+.g-side .authorization>div {
+    margin: 20px auto;
+}
+
+.g-side .m-select {
+    position: relative;
+}
+
+.g-side .m-select .formitem_ct {
+    display: block;
+    position: relative;
+    height: 37px;
+    overflow: hidden;
+    width: 90%;
+    margin: 0;
+    border: 1px solid #7ad7c4;
+    border-radius: 3px;
+    text-align: left;
+    line-height: 37px;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+.g-side .m-select .u-icon-dropdown {
+    position: absolute;
+}
+
+.g-side .m-select .select_opt {
+    top: 37px;
+    width: 90%;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+.g-side .m-select .select_opt>li {
+    width: 100%;
+    padding-left: 10px;
+    line-height: 30px;
 }

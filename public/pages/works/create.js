@@ -7,7 +7,7 @@
         data: [],
         coverImg: {
             id: null,
-            url: ''
+            url: null
         }
     };
     window.App = App;
@@ -147,8 +147,7 @@ var iconConfig = [
     }
     App.nav = nav;
 }(window.App)
-// 作品上传组件
-// 作品预览组件
+// 图片上传及预览
 !function(App) {
     function UploadImg() {
 
@@ -268,27 +267,6 @@ var iconConfig = [
                     App.imgData.data.push(imgData);
                     num++;
                 }.bind(this));
-                // 上传测试
-                var data = {
-                    "name": "作品名称",
-                    "tag": "少女系,萌神,萝莉,未来日记",
-                    "coverId": App.imgData.coverImg.id || App.imgData.data[0].id,
-                    "coverUrl": App.imgData.coverImg.url || App.imgData.data[0].url,
-                    "pictures": App.imgData.data,
-                    "category": 0,
-                    "description": "作品",
-                    "privilege": 0,
-                    "authorization": 0
-                };
-                // _.ajax({
-                //     method: 'post',
-                //     url: '/api/works',
-                //     ContentType: 'application/json',
-                //     data: data,
-                //     callback: function(data) {
-                //         console.log(data)
-                //     }
-                // })
             }.bind(this))
         },
         // 更新进度条及提示信息 
@@ -382,7 +360,7 @@ var iconConfig = [
                 var tagEl = _.tempToNode(`
                     <li class="tag">
                         <span class="close">+</span>
-                        <span>${tag}</span>
+                        <span class="tag_name">${tag}</span>
                     </li>
                 `)
                 this.element.insertBefore(tagEl,this.addTag);
@@ -489,11 +467,209 @@ var iconConfig = [
     })
     App.Tag = Tag;
 }(window.App)
+// 下拉列表组件
+!function(App) {
+    var template = `
+        <div class="m-select">
+            <div class="select_hd">
+                <div class="formitem_ct">
+                    <span class="select_val"></span>
+                    <span class="u-icon-dropdown"></span>
+                </div>
+            </div>
+            <ul class="select_opt f-dn"> </ul>
+        </div>`;
+
+    function Select(options) {
+        _.extend(this, options);
+        this.body = _.tempToNode(template);
+        // 节点...
+        this.nOption = this.body.getElementsByClassName('select_opt')[0];
+        this.nValue = this.body.getElementsByClassName('select_val')[0];
+
+        this.container.appendChild(this.body);
+
+        this.init();
+    }
+    _.extend(Select.prototype, _.emitter);
+    _.extend(Select.prototype, {
+        init: function() {
+            // 1.绑定事件
+            this.initEvent();
+            // 2.渲染列表
+            this.render(this.data);
+
+        },
+        initEvent: function() {
+
+            this.body.addEventListener('click', this.clickHandler.bind(this));
+            document.addEventListener('click', function() {
+                this.close();
+            }.bind(this));
+        },
+        // 渲染列表
+        render: function(data, defaulIndex) {
+            var optionsHTML = '';
+            if (data === null) {
+                optionsHTML += `<li data-index="0">暂无信息</li>`
+            } else {
+                for (let i = 0; i < data.length; i++) {
+                    // 渲染的是数据的第1项的值
+                    optionsHTML += `<li data-index=${i}>${data[i]}</li>`
+                }
+            }
+            this.nOption.innerHTML = optionsHTML;
+            this.nOptions = this.nOption.children;
+            this.options = data;
+            // 默认选中项
+            this.setSelect(defaulIndex || 0);
+        },
+        clickHandler: function(event) {
+            event.stopPropagation();
+
+            if (event.target.nodeName === "LI") {
+                var index = event.target.dataset.index;
+                this.setSelect(index);
+                this.toggle(event);
+            } else {
+                this.toggle(event);
+            }
+        },
+        open: function() {
+            _.delClass(this.nOption, 'f-dn');
+        },
+        close: function() {
+            if (_.hasClass(this.nOption, 'f-dn')) return
+            _.addClass(this.nOption, 'f-dn')
+        },
+        toggle: function(event) {
+            _.hasClass(this.nOption, 'f-dn') ?
+                this.open() :
+                this.close()
+        },
+        // 获取当前选中项的值
+        getValue: function() {
+            return this.options === null ?
+                null :
+                this.options[this.selectedIndex].value;
+        },
+        // 设置选中状态
+        setSelect: function(index) {
+            // 取消上次选中效果
+            if (this.nOptions[this.selectedIndex] !== undefined) {
+                _.delClass(this.nOptions[this.selectedIndex], 'z-select');
+            }
+            // 设置选中
+            this.selectedIndex = index;
+
+            // 当前选中项的名称放到选择框内
+            this.options === null ?
+                this.nValue.innerText = '暂无信息' :
+                this.nValue.innerText = this.options[this.selectedIndex];
+            _.addClass(this.nOptions[this.selectedIndex], 'z-select');
+
+            this.emit('select', this.getValue());
+        }
+    })
+    App.Selector = Select;
+}(window.App)
+// 作品上传
+!function(App) {
+    function UploadWorks() {
+        this.nForm = document.forms[1];
+        // 缓存节点
+        this.nWorksName = this.nForm.works_name;
+        this.nError = _.$('.u-error',this.nForm);
+        this.nSubmitBtn = this.nForm.upload_btn;
+        this.description = this.nForm.works_info;
+        
+        
+        this.init();
+    }
+    _.extend(UploadWorks.prototype,{
+        init: function() {
+            this.nWorksName.addEventListener('input',function() {
+                this.showMsg();
+            }.bind(this))
+            this.nSubmitBtn.addEventListener('click',function(e) {
+                this.upload(e);
+            }.bind(this))
+        },
+        showMsg: function(msg) {
+            if(!msg) {
+                this.nError.innerText = '';
+                _.addClass(this.nError,'f-dn');
+            } else {
+                _.delClass(this.nError,'f-dn');
+                this.nError.innerText = msg;
+            }
+        },
+        upload: function(e) {
+            e.preventDefault();
+            if(!this.testValue()) return;  // 判断必填字段
+            this.getTags();             // 获取标签
+            this.getAuthorization();    // 获取授权信息
+
+            // 须发送的数据
+            var data = {
+                "name": this.nWorksName.value.trim(),
+                "tag": this.tags,
+                "coverId": App.imgData.coverImg.id || App.imgData.data[0].id,
+                "coverUrl": App.imgData.coverImg.url || App.imgData.data[0].url,
+                "pictures": App.imgData.data,
+                "category": this.nForm.category.value,
+                "description": this.description.value,
+                "privilege": this.nForm.privilege.value,
+                "authorization": this.authorization
+            };
+            _.ajax({
+                method: 'post',
+                url: '/api/works',
+                ContentType: 'application/json',
+                data: data,
+                callback: function(data) {
+                    window.location.href = './'
+                }
+            })
+        },
+        // 判断必填字段
+        testValue: function() {
+            if(!this.nWorksName.value.trim()) {
+                this.showMsg('给作品起个名字吧~!');
+                return 0;
+            } else if(!App.imgData.data.length) {
+                this.showMsg('你还没有上传图片哦~!');
+                return 0;
+            }
+            console.log(App.imgData.data)
+            return 1;
+        },
+        // 获取标签内容
+        getTags: function() {
+            this.tags = [];
+            var tagsNode = document.getElementsByClassName('tag_name');
+            if(!tagsNode) return;
+            [].slice.call(tagsNode).forEach(function(item) {
+                this.tags.push(item.innerText);
+            }.bind(this))
+            this.tags.join(',');
+        },
+        // 获取授权信息
+        getAuthorization: function() {
+            var list = _.$('.select_opt');
+            this.authorization = _.$('.z-select',list).dataset.index;
+        }
+    })
+    App.UploadWorks = UploadWorks;
+}(window.App)
 // 页面
 !function(App) {
     var page = {
         init: function() {
             this.initNav();
+            this.initUploadForm();
+            
+            new App.UploadWorks();
         },
         initNav: function(argument) {
             App.nav.init({
@@ -501,17 +677,29 @@ var iconConfig = [
                     // 获取用户信息后的回调
                 }.bind(this)
             });
+        },
+        initUploadForm: function() {
+            // 获取推荐标签
+            var tags = _.$('.tags');
+            new App.Tag({
+                parent: tags,
+                tags: ['Ego','标签组件']
+            });
+            // 初始化图片上传及预览
+            new App.UploadImg();
+            // 初始化作品授权
+            var selectOptions = [
+                '不限制作品用途',
+                '禁止匿名转载，禁止商业使用'
+            ];
+            new App.Selector({
+                container: _.$('.authorization'),
+                data: selectOptions
+            })
+            
         }
     };
     document.addEventListener('DOMContentLoaded', function(e) {
         page.init();
     })
 }(window.App)
-// 标签组件测试
-var node = _.$('.tags');
-new App.Tag({
-    parent: node,
-    tags: ['Ego','标签组件']
-})
-
-new App.UploadImg();
