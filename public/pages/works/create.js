@@ -153,6 +153,7 @@ var iconConfig = [
 
         this.fileInput = _.$('#upload');
         this.progressBar = _.$('progress');
+        this.progressInfo = _.$('#progressInfo');
 
         this.maxSize = 1024 * 1024;
 
@@ -194,7 +195,6 @@ var iconConfig = [
         uploadFiles: function(files) {
             this.sizeOKFiles = files;
             this.uploadNth = 0;
-            this.progressInfo = _.$('#progressInfo');
             // 计算所有文件的总长度
             this.initProgress(files);
             // 更改样式，让用户知道正在上传文件
@@ -211,6 +211,10 @@ var iconConfig = [
         },
         // 初始化进度条
         initProgress: function(files) {
+            if(!files) {
+                _.addClass(this.progressBar,'f-dn');
+                return;
+            }
             this.totalSize = 0;
             files.forEach(function(item) {
                 this.totalSize += item.size;
@@ -248,6 +252,11 @@ var iconConfig = [
             Promise.all(uploadRequests).then(function(data) {
                 // 上传完毕，恢复按钮状态
                 _.delClass(this.fileInput.parentNode,'z-disabled');
+                // 恢复进度条信息为空
+                setTimeout(function() {
+                    this.initProgress();
+                    this.progressInfo.innerHTML = '上传成功，您可以继续上传~';
+                }.bind(this), 800);
                 // 保存图片信息
                 var num = 0;
                 data.forEach(function(item) {
