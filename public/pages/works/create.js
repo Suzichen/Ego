@@ -164,6 +164,17 @@ var iconConfig = [
         changeHandler: function() {
             var changeHandler = function(e) {
                 var files = [].slice.call(e.target.files,0);
+                if(files.length > 10) {
+                    var msg = new App.Modal({
+                        title: '提示信息'
+                    });
+                    var tpl = `
+                    <br><br>
+                    文件数量多于10张，，无法上传
+                    `;
+                    msg.show(tpl);
+                    return;
+                }
                 var sizeExceedFiles = [];
                 var sizeOKFiles = [];
                 // 遍历files,如果大于maxsize，放入exceedfiles数组；
@@ -238,8 +249,12 @@ var iconConfig = [
                         var xhr = new XMLHttpRequest();
                         xhr.addEventListener('readystatechange',function() {
                             if(this.readyState === this.DONE) {
-                                // 上传成功执行回调 
-                                resolve(this.responseText);
+                                if(xhr.status === 200) {
+                                    // 上传成功执行回调 
+                                    resolve(this.responseText);
+                                } else {
+                                    reject(this.responseText)
+                                }
                             }
                         });
                         // 上传过程中监听事件 
@@ -249,34 +264,41 @@ var iconConfig = [
                     })
                 );
             });
-            Promise.all(uploadRequests).then(function(data) {
-                // 上传完毕，恢复按钮状态
-                _.delClass(this.fileInput.parentNode,'z-disabled');
-                // 恢复进度条信息为空
-                setTimeout(function() {
-                    this.initProgress();
-                    this.progressInfo.innerHTML = '上传成功，您可以继续上传~';
-                }.bind(this), 800);
-                // 保存图片信息
-                var num = 0;
-                data.forEach(function(item) {
-                    var imgData = {};
-                    var data = JSON.parse(item).result;
-                    imgData.id = data.id;
-                    imgData.name = data.name;   
-                    imgData.url = data.url;
-                    imgData.position = num;   
-                    imgData.worksId = data.worksId; 
-                    imgData.creatorId = data.creatorId; 
-                    imgData.createTime = data.createTime;
-                    imgData.updateTime = data.updateTime;
-                    // 添加到预览列表
-                    this.appendPreview(imgData);
-                    // 添加图片信息到缓存
-                    App.imgData.data.push(imgData);
-                    num++;
-                }.bind(this));
-            }.bind(this))
+            Promise.all(uploadRequests).then(
+                function(data) {
+                    // 上传完毕，恢复按钮状态
+                    _.delClass(this.fileInput.parentNode,'z-disabled');
+                    // 恢复进度条信息为空
+                    setTimeout(function() {
+                        this.initProgress();
+                        this.progressInfo.innerHTML = '上传成功，您可以继续上传~';
+                    }.bind(this), 800);
+                    // 保存图片信息
+                    var num = 0;
+                    data.forEach(function(item) {
+                        var imgData = {};
+                        var data = JSON.parse(item).result;
+                        imgData.id = data.id;
+                        imgData.name = data.name;   
+                        imgData.url = data.url;
+                        imgData.position = num;   
+                        imgData.worksId = data.worksId; 
+                        imgData.creatorId = data.creatorId; 
+                        imgData.createTime = data.createTime;
+                        imgData.updateTime = data.updateTime;
+                        // 添加到预览列表
+                        this.appendPreview(imgData);
+                        // 添加图片信息到缓存
+                        App.imgData.data.push(imgData);
+                        num++;
+                    }.bind(this));
+                }.bind(this),
+                function(data) {
+                    // 上传失败
+                    _.delClass(this.fileInput.parentNode,'z-disabled');
+                    this.progressInfo.innerHTML = '上传失败，服务器抛出了一个错误~';
+                }
+            )
         },
         // 更新进度条及提示信息 
         progressHandler: function(e) {

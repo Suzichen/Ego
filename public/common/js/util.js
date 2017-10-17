@@ -52,7 +52,7 @@ var util = (function() {
                     if (xhr.status === 200) {
                         obj.callback(xhr.responseText);
                     } else {
-                        console.log('错误信息：' + xhr.status)
+                        obj.error(xhr.responseText);
                     }
                 }
             }
