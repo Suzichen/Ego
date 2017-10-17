@@ -206,6 +206,10 @@ a:hover {
     display: block;
 }
 
+.f-green {
+    color: #58d0b9;
+}
+
 .f-fl {
     float: left;
 }

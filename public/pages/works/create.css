@@ -186,6 +186,10 @@
     opacity: 0;
 }
 
+.m-preview .item span.z-select {
+    opacity: 1;
+}
+
 .m-preview .item .u-icon-delete {
     position: absolute;
     top: 2px;
@@ -216,14 +220,16 @@
     background-color: #fff;
 }
 
-.works_detail>.u-formitem {
-    margin: 10px;
+.works_detail>.u-formitem,
+.tags .u-formitem {
+    margin: 20px;
 }
 
 .works_detail label {
     position: relative;
     vertical-align: top;
     top: 10px;
+    right: 18px;
 }
 
 .works_detail input {
@@ -249,25 +255,65 @@
     box-sizing: border-box;
 }
 
+.works_detail input::-webkit-input-placeholder,
+.works_detail textarea::-webkit-input-placeholder {
+    font-size: .9em;
+    font-style: italic;
+    color: #ddd;
+}
+
 /* 标签组件/推荐标签组件 */
+.tags .u-formitem {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
 .m-tag,
 .m-recommend {
     display: flex;
     flex-wrap: wrap;
+    margin-left: 70px;
+    margin-top: -15px;
 }
 
 .m-tag .tag,
 .m-recommend .tag {
     position: relative;
-    padding: 6px 12px;
-    margin: 0 12px 0 0;
+    padding: 0px 12px;
+    margin: 5px 12px 0 0;
+    cursor: pointer;
+}
+
+.m-tag .tag {
+    height: 26px;
+    line-height: 26px;
+    font-size: 13px;
+    color: #76d7c3;
+    border: 1px solid #76d7c3;
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+.m-recommend .tag {
+    height: 28px;
+    line-height: 26px;
+    font-size: 13px;
+    color: #fff;
+    border-radius: 2px;
+    background-color: #58d0b9;
+    box-sizing: border-box;
+}
+
+.tag .tag_name {
+    position: relative;
 }
 
 .m-tag .tag .close {
     position: absolute;
-    right: 0;
-    top: -3px;
+    right: -3px;
+    top: -7px;
     font-size: 20px;
+    color: #000;
     opacity: 0;
 }
 
@@ -283,12 +329,28 @@
     display: block;
 }
 
+
+.m-tag .tag-add.focused {
+    border: none;
+}
+
 .m-tag .tag-add.focused .u-inp {
     display: block;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 2px;
 }
 
 .m-tag .tag-add.focused span {
     display: none;
+}
+
+/* 提交按钮 */
+#upload_btn {
+    margin-top: 35px;
+    margin-bottom: 20px;
+    /* margin-left: -20px; */
 }
 
 /* 侧栏 */

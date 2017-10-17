@@ -186,7 +186,10 @@ var iconConfig = [
                 }.bind(this))
                 this.files = sizeOKFiles;
                 // 如果exceedfiles数组中有文件，进行弹窗提示
-                if(!!sizeExceedFiles.length) this.showMsg(sizeExceedFiles);
+                if(!!sizeExceedFiles.length) {
+                    this.showMsg(sizeExceedFiles);
+                    return;
+                } 
                 this.uploadFiles(sizeOKFiles);
             }.bind(this);
             this.fileInput.addEventListener('change',changeHandler);
@@ -296,8 +299,8 @@ var iconConfig = [
                 function(data) {
                     // 上传失败
                     _.delClass(this.fileInput.parentNode,'z-disabled');
-                    this.progressInfo.innerHTML = '上传失败，服务器抛出了一个错误~';
-                }
+                    this.progressInfo.innerHTML = '啊哦~！上传失败了，服务器君出了点状况...';
+                }.bind(this)
             )
         },
         // 更新进度条及提示信息 
@@ -329,11 +332,19 @@ var iconConfig = [
             );
             _.$('.m-preview').appendChild(html);
             // 设置设为封面事件
+            var setCoverImg = this.setCoverImg;
             _.$('.f-setcover',html).addEventListener('click',function() {
-                this.setCoverImg(data);
-            }.bind(this));
+                setCoverImg(data);  // 更新封面信息到缓存
+                var all = [].slice.call(document.getElementsByClassName('f-setcover'));
+                all.forEach(function(item) {
+                    item.innerHTML = '设为封面';
+                    _.delClass(item,'z-select')
+                })
+                this.innerHTML = '已设为封面';
+                _.addClass(this,'z-select')
+            });
         },
-        // 设置封面
+        // 更新封面信息
         setCoverImg: function(data) {
             App.imgData.coverImg.id = data.id;
             App.imgData.coverImg.url = data.url;
@@ -358,15 +369,31 @@ var iconConfig = [
 }(window.App)
 // 标签组件
 !function(App) {
+    var template = `
+        <div>
+            <div class="u-formitem">
+                <label>标签</label>
+                <ul class="m-tag"></ul>
+            </div>
+            <div class="u-formitem">
+                <label class="f-green">推荐标签</label>
+                <ul class="m-recommend"></ul>
+            </div>
+        </div>
+    `
     function Tag(options) {
+        // 参数
         this.options = options;
         if(!this.options.parent) {
             console.log('未传入父容器');
             return;
         }
         this.list = [];
-        this.element = _.createElement('ul','m-tag');
-        this.options.parent.appendChild(this.element);
+        // 节点
+        this.node = _.tempToNode(template);
+        this.element = _.$('.m-tag',this.node);
+        this.options.parent.appendChild(this.node);
+        // 初始化
         this.initList();
         this.addEvent();
         this.getRecommend();
@@ -471,14 +498,13 @@ var iconConfig = [
         // 渲染推荐标签
         renderRecommend: function(data) {
             data = data.split(',');
-            this.recommendParent = _.createElement('ul','m-recommend');
+            this.recommendParent = _.$('.m-recommend',this.node);
             this.recommendTags = [];
             for (var i = 0; i < data.length; i++) {
                 var tag = _.createElement('li','tag',`+${data[i]}`);
                 this.recommendTags.push(data[i]);
                 this.recommendParent.appendChild(tag);
             }
-            this.options.parent.appendChild(this.recommendParent);
             this.addRecommendEvent();
         },
         // 推荐标签的事件
@@ -713,7 +739,7 @@ var iconConfig = [
             var tags = _.$('.tags');
             new App.Tag({
                 parent: tags,
-                tags: ['Ego','标签组件']
+                tags: []
             });
             // 初始化图片上传及预览
             new App.UploadImg();
