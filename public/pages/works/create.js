@@ -583,7 +583,6 @@ var iconConfig = [
         this.nSubmitBtn = this.nForm.upload_btn;
         this.description = this.nForm.works_info;
         
-        
         this.init();
     }
     _.extend(UploadWorks.prototype,{
@@ -612,15 +611,15 @@ var iconConfig = [
 
             // 须发送的数据
             var data = {
-                "name": this.nWorksName.value.trim(),
-                "tag": this.tags,
-                "coverId": App.imgData.coverImg.id || App.imgData.data[0].id,
-                "coverUrl": App.imgData.coverImg.url || App.imgData.data[0].url,
-                "pictures": App.imgData.data,
-                "category": this.nForm.category.value,
-                "description": this.description.value,
-                "privilege": this.nForm.privilege.value,
-                "authorization": this.authorization
+                name: this.nWorksName.value.trim(),
+                tag: this.tags,
+                coverId: App.imgData.coverImg.id || App.imgData.data[0].id,
+                coverUrl: App.imgData.coverImg.url || App.imgData.data[0].url,
+                pictures: App.imgData.data,
+                category: parseInt(this.nForm.category.value),
+                description: this.description.value,
+                privilege: parseInt(this.nForm.privilege.value),
+                authorization: parseInt(this.authorization)
             };
             _.ajax({
                 method: 'post',
@@ -652,7 +651,7 @@ var iconConfig = [
             [].slice.call(tagsNode).forEach(function(item) {
                 this.tags.push(item.innerText);
             }.bind(this))
-            this.tags.join(',');
+            this.tags = this.tags.join(',');
         },
         // 获取授权信息
         getAuthorization: function() {

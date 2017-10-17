@@ -321,6 +321,7 @@
 
 .g-side .m-select {
     position: relative;
+    cursor: default;
 }
 
 .g-side .m-select .formitem_ct {
