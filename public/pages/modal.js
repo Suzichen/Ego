@@ -48,10 +48,12 @@
             }
         },
         show: function(content) {
+            if(_.$('.m-modal')) return;
             if (content) this.setContent(content);
             document.body.appendChild(this.container);
         },
         hide: function() {
+            if(!_.$('.m-modal')) return;
             var container = this.container;
             document.body.removeChild(container);
         },
@@ -67,11 +69,11 @@
                 'click', this._onConfirm.bind(this)
             )
         },
-        _onConfirm: function() {
+        _onConfirm: function(e) {
             this.emit('confirm')
             this.hide();
         },
-        _onCancel: function() {
+        _onCancel: function(e) {
             this.emit('cancel')
             this.hide();
         }

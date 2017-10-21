@@ -208,7 +208,6 @@ var iconConfig = [
         // 上传文件流程
         uploadFiles: function(files) {
             this.sizeOKFiles = files;
-            this.uploadNth = 0;
             // 计算所有文件的总长度
             this.initProgress(files);
             // 更改样式，让用户知道正在上传文件
@@ -242,9 +241,11 @@ var iconConfig = [
         upload: function() {
             // 定义一个数组，保存所有的请求对象
             var uploadRequests = [];
+            this.uploadNth = 0;
             var progressHandler = this.progressHandler.bind(this);
 
             this.files.forEach(function(file) {
+                // return;
                 uploadRequests.push(
                     new Promise(function(resolve,reject) {
                         var fd = new FormData();
@@ -309,7 +310,7 @@ var iconConfig = [
                 // 更新progressBar的value为getLoadedSize()
                 this.progressBar.value += e.loaded;
                 // 设置progressInfo, 共X个文件，正在上传y个，上传进度z%...
-                this.uploadNth ++;
+                this.uploadNth ++;  // 这里数据不对
                 // 上传进度
                 var percent = parseInt((this.progressBar.value / this.progressBar.max) * 100);
                 var html = `

@@ -3,6 +3,18 @@
 
     };
     App.user = {};
+    App.template = {
+        side: `
+            <ul>
+                <li class="side_menu">个人中心</li>
+                <li class="side_menu z-active">我的作品</li>
+                <li class="side_menu">我关注的</li>
+                <li class="side_menu">我的圈子</li>
+                <li class="side_menu">消息提醒</li>
+                <li class="side_menu">隐私设置</li>
+            </ul>
+        `
+    }
     window.App = App;
     window._ = _;
 })(util)
@@ -130,7 +142,7 @@ var iconConfig = [
                     method: 'post',
                     url: '/api/logout',
                     callback: function() {
-                        window.location.href = "index"
+                        window.location.href = "../index"
                     },
                     data: this.data
                 })
@@ -165,8 +177,8 @@ var iconConfig = [
                         <em class="u-icon ${iconConfig[this.user.sex]}"></em>
                     </span>
                 </div>
-                <div class="u-info">
-                    <em class="age">${this.age}</em>
+                <div class="u-info u-info-1">
+                    <em class="age">${this.age}岁</em>
                     <em class="constellation">${this.constellation}座</em>
                     <span class="address-info">
                         <em class="u-icon u-icon-address"></em>
@@ -233,10 +245,9 @@ var iconConfig = [
                     // 加载过程中显示旋转图标
                     // _.addClass(_.$('#g-bd'),'list-loaded');
                     if(!data.result.data.length) {
-                        _.$('.m-works').innerHTML = '你还没有创建过作品~';
+                        _.$('.m-works').innerHTML = '你还没有创建过作品~<br><br><br>';
                         return;
                     }
-                    
                     this.renderList(data.result.data);
                     this.addEvent();
                 }.bind(this)
@@ -249,16 +260,16 @@ var iconConfig = [
                 method: 'get',
                 ContentType: 'application/json',
                 callback: function(data) {
-                    console.log(data)
                     options.callback(data);
                 }
             })
         },
         renderList: function(list) {
+            this.worksListData = list;  //缓存作品数据，便于修改
             // 制作模板
             var html = `
                 {{#each works}}
-                <li class="item">
+                <li class="item" data-id={{this.id}}>
                     <a href="#">
                         {{#if this.coverUrl}}
                         <img src="{{this.coverUrl}}" alt="作品默认封面">
@@ -284,7 +295,13 @@ var iconConfig = [
         addEvent: function() {
             // 给编辑和删除图标添加点击事件
             var self = this;
+            var worksHandler = function(e) {
+                
+            }
+            
             _.$('.m-works').addEventListener('click',function(e) {
+                // 多次触发问题
+                e.stopImmediatePropagation();
                 var target = e.target;
                 if(target.classList.contains('u-icon')) {
                     var worksEl = target.parentNode.parentNode;
@@ -314,10 +331,10 @@ var iconConfig = [
                 this.hide();
                 _.ajax({
                     method: 'delete',
-                    url: '/api/wprks/:' + works.id,
+                    ContentType: 'application/json',
+                    url: '/api/works/' + works.id,
                     callback: function(data) {
                         // 删除
-
                         // 刷新列表
                         self.initList();
                     }
@@ -330,22 +347,46 @@ var iconConfig = [
                 title: '请输入新的作品名称',
                 footer: true
             });
+            var self = this;
             modal.show(input)
             modal.on('confirm',function() {
                 var newName = input.value.trim();
                 if(!newName) {
                     // 提示用户
-
+                    var msg = new App.Modal({
+                        title: '提示信息'
+                    })
+                    setTimeout(function() {
+                        msg.show('<br><br>新的作品名称不能为空')
+                    }, 0);
                     return;
                 }
+                // 检出修改项的具体信息
+                var data = {};
+                self.worksListData.forEach(function(item) {
+                    if(works.id == item.id) {
+                        data = item;
+                        return;
+                    }
+                })
+                data.name = newName;
+                
+                var data1 = {
+                    name: newName
+                }
                 if(newName !== works.name) {
+                    console.log(JSON.stringify(data1))
                     _.ajax({
-                        method: 'patch',
-                        // data: {name: newName},
-                        url: '/api/works/:' + works.id,
+                        method: 'PATCH',
+                        ContentType: 'application/json',
+                        data: data1,
+                        url: '/api/works/' + works.id,
                         callback: function(data) {
                             data = JSON.parse(data);
                             _.$('h3',worksEl).innerHTML = data.result.name;
+                        },
+                        error: function() {
+                            console.log('修改失败')
                         }
                     })
                 }
@@ -469,7 +510,13 @@ var iconConfig = [
 !function(App) {
     var page = {
         init: function() {
+            this.initSide();
             this.initNav();
+        },
+        initSide: function() {
+            var node = _.$('.m-aside'),
+                html = _.tempToNode(App.template.side);
+            node.appendChild(html);
         },
         initNav: function(argument) {
             App.nav.init({
@@ -512,3 +559,7 @@ new App.Pagination({
         console.log(1)
     }
 })
+// 侧边栏
+!function(App) {
+
+}(window.App)

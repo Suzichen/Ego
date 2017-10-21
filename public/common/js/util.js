@@ -36,6 +36,10 @@ var util = (function() {
             }
             return parirs.join('&');
         },
+        setRequestHeader: function(xhr,item,value) {
+            if(!value) return;
+            xhr.setRequestHeader('Content-Type', value)
+        },
         //ajax调用
         //参数：method:'get',//设置方法
         //     url:'http://localhost:3000',//设置地址
@@ -45,6 +49,7 @@ var util = (function() {
         //     data: data//需要传递的数据
         //     ContentType: //自定义请求头
         ajax: function(obj) {
+            console.log(obj)
             var xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
             xhr.onreadystatechange = function() {
@@ -52,18 +57,29 @@ var util = (function() {
                     if (xhr.status === 200) {
                         obj.callback(xhr.responseText);
                     } else {
-                        obj.error(xhr.responseText);
+                        if(obj.error)  obj.error(xhr.responseText);
+                        console.log('错误代码：' + xhr.responseText);
                     }
                 }
             }
-            if (obj.method === 'get') { //如果是get方法，需要把data中的数据转化作为url传递给服务器
+            if (obj.method.toUpperCase() === 'GET') { //如果是get方法，需要把data中的数据转化作为url传递给服务器
                 xhr.open(obj.method, obj.url, true);
+                this.setRequestHeader(xhr, 'Content-Type', obj.ContentType);
                 xhr.send(null);
-            } else if (obj.method === 'post') {
+            } else if (obj.method.toUpperCase() === 'POST') {
                 xhr.open(obj.method, obj.url, true);
-                obj.ContentType ?
-                    xhr.setRequestHeader('Content-Type', obj.ContentType) :
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                this.setRequestHeader(xhr, 'Content-Type', obj.ContentType);
+                // obj.ContentType ?
+                //     xhr.setRequestHeader('Content-Type', obj.ContentType) :
+                //     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send(JSON.stringify(obj.data));
+            } else if(obj.method.toUpperCase() === 'DELETE') {
+                xhr.open(obj.method, obj.url, true);
+                this.setRequestHeader(xhr, 'Content-Type', obj.ContentType);
+                xhr.send(null);
+            } else if(obj.method.toUpperCase() === 'PATCH') {
+                xhr.open(obj.method, obj.url, true);
+                this.setRequestHeader(xhr, 'Content-Type', obj.ContentType);
                 xhr.send(JSON.stringify(obj.data));
             } else {
                 console.log('不识别的方法:' + obj.method);
