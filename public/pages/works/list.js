@@ -220,6 +220,39 @@ var iconConfig = [
     })
     App.Profile = Profile;
 }(window.App)
+// 侧边栏菜单组件
+!function(App) {
+    function SideMenu(options) {
+        
+        _.extend(this, options);
+
+        this.node = _.tempToNode(App.template.side);
+        this.menus = [].slice.call(this.node.getElementsByClassName('side_menu'));
+
+        this.init();
+    }
+    _.extend(SideMenu.prototype, {
+        init: function() {
+            this.render();
+            this.addEvent();
+        },
+        render: function() {
+            this.container.appendChild(this.node);
+        },
+        addEvent: function() {
+            this.menus.forEach(function(menu) {
+                menu.addEventListener('click', this.clickHandler);
+            }.bind(this))
+        },
+        clickHandler: function(e) {
+            var modal = new App.Modal({
+                title: '提示信息'
+            });
+            modal.show('<br><br>此功能暂未开放，敬请期待')
+        }
+    })
+    App.SideMenu = SideMenu;
+}(window.App)
 // 作品列表 *
 !function(App) {
     var DEFAULT_QUERY = {
@@ -536,9 +569,10 @@ var iconConfig = [
             this.initNav();
         },
         initSide: function() {
-            var node = _.$('.m-aside'),
-                html = _.tempToNode(App.template.side);
-            node.appendChild(html);
+            var node = _.$('.m-aside');
+            new App.SideMenu({
+                container: node
+            });
         },
         initNav: function(argument) {
             App.nav.init({
