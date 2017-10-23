@@ -216,6 +216,8 @@ var followConfig = [{
                     this.highLight(index);
                 }.bind(this, i))
                 this.nTabs[i].addEventListener('click', function(index) {
+                    console.log(this.nTabs[i].id)
+                    if(this.nTabs[i].id === "link-my-work") return;
                     this.setCurrent(index)
                 }.bind(this, i))
             }

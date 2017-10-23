@@ -310,7 +310,10 @@ var iconConfig = [
                 // 更新progressBar的value为getLoadedSize()
                 this.progressBar.value += e.loaded;
                 // 设置progressInfo, 共X个文件，正在上传y个，上传进度z%...
+
                 this.uploadNth ++;  // 这里数据不对
+                if(this.uploadNth > this.sizeOKFiles.length) { this.uploadNth = this.sizeOKFiles.length }
+
                 // 上传进度
                 var percent = parseInt((this.progressBar.value / this.progressBar.max) * 100);
                 var html = `
@@ -685,6 +688,7 @@ var iconConfig = [
                 ContentType: 'application/json',
                 data: data,
                 callback: function(data) {
+                    return
                     window.location.href = './'
                 }
             })
@@ -698,7 +702,6 @@ var iconConfig = [
                 this.showMsg('你还没有上传图片哦~!');
                 return 0;
             }
-            console.log(App.imgData.data)
             return 1;
         },
         // 获取标签内容

@@ -237,7 +237,6 @@
                 data: data,
                 callback: function(data) {
                     var data = JSON.parse(data);
-                    console.log(data)
                     if (data.code === 200) {
                         this.hide();
                         this.emit('ok', data.result);
@@ -291,7 +290,7 @@
                 <!-- 性别 -->
                 <div class="u-formitem">
                     <label for="sex" class="formitem_tt">性别</label>
-                    <div class="u-radiobox">
+                    <div class="u-radiobox sexcheck">
                         <div>
                         <label for="boy">
                             <input type="radio" name="sex" id="boy" value="0">
@@ -396,15 +395,15 @@
             }.bind(this));
             // 条款
             this.nClause.addEventListener('click', function() {
-                    this.showMsg();
-                    this.btnDisabled();
-                }.bind(this))
-                // 性别
+                this.showMsg();
+                this.btnDisabled();
+            }.bind(this))
+            // 性别
             this.sexcheck.addEventListener('click', function() {
-                    this.showMsg();
-                    this.btnDisabled();
-                }.bind(this))
-                // 提交
+                this.showMsg();
+                this.btnDisabled();
+            }.bind(this))
+            // 提交
             this.submitBtn.addEventListener('click', function(e) {
                 this.submit(e);
             }.bind(this))

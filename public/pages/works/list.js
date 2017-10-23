@@ -223,7 +223,7 @@ var iconConfig = [
 // 作品列表 *
 !function(App) {
     var DEFAULT_QUERY = {
-        total: 0,
+        total: 1,
         offset: 0,
         limit: 10
     }
@@ -243,13 +243,17 @@ var iconConfig = [
                 callback: function(data) {
                     data = JSON.parse(data);
                     // 加载过程中显示旋转图标
+                    // 已通过其它方式实现
                     // _.addClass(_.$('#g-bd'),'list-loaded');
                     if(!data.result.data.length) {
                         _.$('.m-works').innerHTML = '你还没有创建过作品~<br><br><br>';
                         return;
                     }
-                    this.renderList(data.result.data);
+                    this.renderList(data.result.data)
+                    // this.renderList(data.result.data.slice(0, this.query.limit));
                     this.addEvent();
+                    // 初始化分页器组件
+                    this.initPagination(data.result)
                 }.bind(this)
             })
         },
@@ -257,7 +261,7 @@ var iconConfig = [
             _.ajax({
                 data: options.query,
                 url: '/api/works',
-                method: 'get',
+                method: 'GET',
                 ContentType: 'application/json',
                 callback: function(data) {
                     options.callback(data);
@@ -390,6 +394,22 @@ var iconConfig = [
                         }
                     })
                 }
+            })
+        },
+        initPagination: function(works) {
+            if(works.data < this.query.limit) return;
+            if(_.$('.m-pagination')) return;
+            new App.Pagination({
+                parent: _.$('.g-wrap'),
+                total: works.total,
+                current: 1,
+                showNum: 8,
+                itemsLimit: this.query.limit,
+                callback: function(currentPage) {
+                    // 这里写分页器的事件
+                    this.query.offset = (currentPage - 1) * this.query.limit; // 偏移位置
+                    this.initList();
+                }.bind(this)
             })
         }
     })
@@ -542,24 +562,15 @@ var iconConfig = [
     })
 }(window.App)
 
-// 模板测试
-// var node  = document.getElementById('entry-template');
-// var template = Handlebars.compile(node.innerHTML);
-// var data = {title: 'hellasdsdsdsfsdfsdo'};
-// node.parentNode.innerHTML = template(data)
 
 // 分页器测试
-new App.Pagination({
-    parent: _.$('.g-wrap'),
-    total: 500,
-    current: 2,
-    showNum: 8,
-    itemsLimit: 10,
-    callback: function(currentPage) {
-        console.log(1)
-    }
-})
-// 侧边栏
-!function(App) {
-
-}(window.App)
+// new App.Pagination({
+//     parent: _.$('.g-wrap'),
+//     total: 500,
+//     current: 2,
+//     showNum: 8,
+//     itemsLimit: 10,
+//     callback: function(currentPage) {
+//         console.log(1)
+//     }
+// })

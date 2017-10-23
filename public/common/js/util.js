@@ -18,23 +18,18 @@ var util = (function() {
         },
         // Ajax相关
         // URL添加后缀
-        //url += serialize(json)
-        serialize: function(data) {
-            if (!data) return '';
-            var parirs = [];
+        serialize: function(url,data) {
+            if(!data) return url;
             for (var name in data) {
                 if (!data.hasOwnProperty(name)) continue;
                 if (typeof data[name] === 'function') continue;
                 var value = data[name].toString();
                 name = encodeURIComponent(name);
                 value = encodeURIComponent(value);
-                if (!parirs.length) {
-                    parirs.push('?' + name + '=' + value);
-                } else {
-                    parirs.push(name + '=' + value);
-                }
+                url += (url.indexOf("?") == -1 ? "?" : "&");
+                url += name + "=" + value;
             }
-            return parirs.join('&');
+            return url;
         },
         setRequestHeader: function(xhr,item,value) {
             if(!value) return;
@@ -49,7 +44,6 @@ var util = (function() {
         //     data: data//需要传递的数据
         //     ContentType: //自定义请求头
         ajax: function(obj) {
-            console.log(obj)
             var xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
             xhr.onreadystatechange = function() {
@@ -63,6 +57,7 @@ var util = (function() {
                 }
             }
             if (obj.method.toUpperCase() === 'GET') { //如果是get方法，需要把data中的数据转化作为url传递给服务器
+                obj.url = this.serialize(obj.url, obj.data)
                 xhr.open(obj.method, obj.url, true);
                 this.setRequestHeader(xhr, 'Content-Type', obj.ContentType);
                 xhr.send(null);
