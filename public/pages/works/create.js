@@ -681,7 +681,6 @@ var iconConfig = [
                 ContentType: 'application/json',
                 data: data,
                 callback: function(data) {
-                    return
                     window.location.href = './'
                 }
             })

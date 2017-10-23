@@ -224,6 +224,10 @@
     margin: 20px;
 }
 
+.u-formitem.remark {
+    display: flex;
+}
+
 .works_detail label {
     position: relative;
     vertical-align: top;
@@ -244,9 +248,10 @@
 }
 
 .works_detail textarea {
+    flex: 1;
     height: 100px;
-    width: 400px;
-    margin: 0;
+    max-width: 400px;
+    margin-left: 5px;
     padding: 5px;
     border: 1px solid #7ad7c4;
     text-align: left;
