@@ -89,6 +89,11 @@
     cursor: pointer;
 }
 
+.m-aside .side_menu:hover {
+    color: #666;
+    background-color: #5ecc99;
+}
+
 .m-aside .side_menu.z-active {
     color: #fff;
     background-color: #5ed0ba;
