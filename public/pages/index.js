@@ -216,7 +216,6 @@ var followConfig = [{
                     this.highLight(index);
                 }.bind(this, i))
                 this.nTabs[i].addEventListener('click', function(index) {
-                    console.log(this.nTabs[i].id)
                     if(this.nTabs[i].id === "link-my-work") return;
                     this.setCurrent(index)
                 }.bind(this, i))
@@ -285,7 +284,6 @@ var followConfig = [{
             }.bind(this))
         },
         showLogin: function() {
-            console.log(1)
             this.modal = new App.LoginModal();
 
             this.modal.on('ok', function(data) {
@@ -298,7 +296,7 @@ var followConfig = [{
                 this.modal.hide();
                 this.nRegister.click();
             }.bind(this));
-            
+
         }
     })
     App.UserInfo = UserInfo;
@@ -462,7 +460,6 @@ var followConfig = [{
                 data: { id: followInfo.id },
                 callback: function(data) {
                     data = JSON.parse(data);
-                    console.log(data)
                     if (data.code === 200) {
                         followInfo.isFollow = true;
                         followInfo.followCount++;
@@ -474,14 +471,12 @@ var followConfig = [{
         },
         unFollow: function(followInfo, replaceNode) {
             var data = { id: followInfo.id };
-            console.log(data)
             _.ajax({
                 url: '/api/users?unfollow',
                 method: 'post',
                 ContentType: 'application/json',
                 data: data,
                 callback: function(data) {
-                    console.log(data)
                     followInfo.isFollow = false;
                     followInfo.followCount--;
                     var newNode = _.tempToNode(this.renderItem(followInfo));
