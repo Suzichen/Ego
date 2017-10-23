@@ -504,7 +504,6 @@
     height: 44px;
     padding-top: 10px;
     font-weight: bold;
-    font-size: .9em;
     line-height: 1.3em;
     letter-spacing: .2em;
     border-bottom: 1px solid #e2e3e3;
@@ -516,6 +515,22 @@
 
 .content .topics>li:last-child {
     border-bottom: none;
+}
+
+.content .topics a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-size: 12px;
+}
+
+.topics .topics_title {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .content .more-bottom .u-icon-moretight {
