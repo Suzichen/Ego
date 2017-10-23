@@ -118,7 +118,8 @@ img.my-avatar {
     display: flex;
 }
 
-.u-info .u-icon-female {
+.u-info .u-icon-female,
+.u-info .u-icon-male {
     width: 21px;
     height: 21px;
     margin-left: 10px;
