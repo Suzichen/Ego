@@ -29,6 +29,7 @@
     height: 216px;
     background-color: #fff;
     margin-top: -75px;
+    box-shadow: 6px 6px 6px #b3b3b4;
 }
 
 .g-main {
@@ -41,6 +42,7 @@
     min-height: 215px;
     padding: 30px;
     border-top: 1px solid #e2e3e3;
+    box-shadow: 6px 6px 6px #b3b3b4;
     background-color: #fff;
 }
 
@@ -98,6 +100,7 @@ img.my-avatar {
 .u-info {
     display: flex;
     position: relative;
+    margin-top: 12px;
 }
 
 .u-info .address-info {
@@ -132,6 +135,12 @@ img.my-avatar {
     display: flex;
     justify-content: space-between;
     margin-bottom: 28px;
+}
+
+.g-wrap .works_title>span {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: .5em;
 }
 
 .g-wrap .works_title>a {
@@ -229,7 +238,7 @@ img.my-avatar {
     width: 100%;
     line-height: 37px;
     margin-top: 50px;
-    padding-left: 25px;
+    padding-left: 15px;
     border: 1px solid #7ad7c4;
     border-radius: 3px;
     -webkit-border-radius: 3px;
