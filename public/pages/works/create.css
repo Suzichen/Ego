@@ -261,6 +261,14 @@
     color: #ddd;
 }
 
+.works_detail input::-moz-placeholder,
+.works_detail textarea::-moz-placeholder {
+    font-size: .9em;
+    font-style: italic;
+    color: #ddd;
+    opacity: 1;
+}
+
 /* 标签组件/推荐标签组件 */
 .tags .u-formitem {
     margin-top: 0px;
