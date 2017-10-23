@@ -131,6 +131,10 @@
     cursor: pointer;
 }
 
+.m-slider .m-cursor li.z-active {
+    background: #666;
+}
+
 
 /* 内容区 */
 

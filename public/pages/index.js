@@ -369,9 +369,12 @@ var followConfig = [{
         },
         // 设置选中状态
         setCurrent: function() {
+            _.addClass(this.cursors[this.index], 'z-active');
             _.addClass(this.sliders[this.index], 'z-active');
-            if (this.last !== undefined)
+            if (this.last !== undefined) {
+                _.delClass(this.cursors[this.last], 'z-active');
                 _.delClass(this.sliders[this.last], 'z-active');
+            }
         },
         autoPlay: function() {
             this.timer = setInterval(function() {
