@@ -222,20 +222,14 @@ var iconConfig = [
             };
             this.upload();
         },
-        // 初始化进度条
+        // 进度条的控制
         initProgress: function(files) {
             if(!files) {
                 _.addClass(this.progressBar,'f-dn');
                 return;
             }
-            this.totalSize = 0;
-            files.forEach(function(item) {
-                this.totalSize += item.size;
-            }.bind(this));
-            // 设置progressBar的value(0)和max(totalsize)
+            // 显示进度条
             _.delClass(this.progressBar,'f-dn')
-            this.progressBar.value = 0;
-            this.progressBar.max = this.totalSize;
         },
         // 多文件依次开始上传
         upload: function() {
@@ -307,15 +301,14 @@ var iconConfig = [
         // 更新进度条及提示信息 
         progressHandler: function(e) {
             if(e.lengthComputable) {
-                // 更新progressBar的value为getLoadedSize()
-                this.progressBar.value += e.loaded;
-                // 设置progressInfo, 共X个文件，正在上传y个，上传进度z%...
 
-                this.uploadNth ++;  // 这里数据不对
-                if(this.uploadNth > this.sizeOKFiles.length) { this.uploadNth = this.sizeOKFiles.length }
+                // 更新progressBar
+                this.progressBar.value = e.loaded;
+                this.progressBar.max = e.total;
 
-                // 上传进度
+                // 更新上传进度信息
                 var percent = parseInt((this.progressBar.value / this.progressBar.max) * 100);
+                this.uploadNth = Math.ceil(this.sizeOKFiles.length * (e.loaded / e.total))
                 var html = `
                     <span>共 ${this.sizeOKFiles.length} 个文件，正在上传第 ${this.uploadNth} 个，上传进度 ${percent}%...</span>
                 `;

@@ -265,6 +265,9 @@ var iconConfig = [
                 ContentType: 'application/json',
                 callback: function(data) {
                     options.callback(data);
+                },
+                error: function(data) {
+                    options.callback(data);
                 }
             })
         },
