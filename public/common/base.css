@@ -348,6 +348,7 @@ a:hover {
 
 .u-search {
     display: flex;
+    justify-content: space-between;
     height: 40px;
     width: 195px;
     padding: 5px 0 5px 15px;
