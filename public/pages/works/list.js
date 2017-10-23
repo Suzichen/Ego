@@ -326,7 +326,7 @@ var iconConfig = [
         },
         deleteWorks: function(works) {
             var self = this;
-            var html = `确定要删除${works.name}吗?`;
+            var html = `<br><br>确定要删除${works.name}吗?<br><br>`;
             // 弹窗
             var modal = new App.Modal({
                 title: '提示消息：',
@@ -335,7 +335,6 @@ var iconConfig = [
             modal.show(html);
             
             modal.on('confirm',function() {
-                this.hide();
                 _.ajax({
                     method: 'delete',
                     ContentType: 'application/json',
@@ -355,7 +354,7 @@ var iconConfig = [
                 footer: true
             });
             var self = this;
-            modal.show(input)
+            modal.show(input);
             modal.on('confirm',function() {
                 var newName = input.value.trim();
                 if(!newName) {
@@ -382,7 +381,6 @@ var iconConfig = [
                     name: newName
                 }
                 if(newName !== works.name) {
-                    console.log(JSON.stringify(data1))
                     _.ajax({
                         method: 'PATCH',
                         ContentType: 'application/json',
