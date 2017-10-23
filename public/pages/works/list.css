@@ -16,6 +16,11 @@
     background: url(../../res/images/banner_list.png) no-repeat;
     background-size:  100%;
 }
+@media screen and (max-width: 1024px) {
+    .g-banner {
+        background-size: auto;
+    }
+}
 
 .g-body {
     width: 750px;
