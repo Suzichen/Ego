@@ -400,7 +400,8 @@ var iconConfig = [
             })
         },
         initPagination: function(works) {
-            if(works.data < this.query.limit) return;
+            // 作品凑不够一页不显示分页器
+            if(works.data.length < this.query.limit) return;
             if(_.$('.m-pagination')) return;
             new App.Pagination({
                 parent: _.$('.g-wrap'),
