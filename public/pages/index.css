@@ -68,13 +68,12 @@
 /* logo */
 
 .logo {
-    display: table;
+    display: flex;
+    align-items: center;
     height: 90px;
 }
 
 .logo span {
-    display: table-cell;
-    vertical-align: middle;
     cursor: default;
 }
 
