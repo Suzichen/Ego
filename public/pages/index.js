@@ -276,12 +276,6 @@ var followConfig = [{
                 // 解决弹出多个弹窗bug
                 if (document.getElementsByClassName('m-modal')[0]) return;
                 this.showLogin();
-
-                this.modal.on('register', function() {
-                    this.modal.hide();
-                    this.nRegister.click();
-                }.bind(this));
-
             }.bind(this));
 
             this.nRegister.addEventListener('click', function() {
@@ -291,6 +285,7 @@ var followConfig = [{
             }.bind(this))
         },
         showLogin: function() {
+            console.log(1)
             this.modal = new App.LoginModal();
 
             this.modal.on('ok', function(data) {
@@ -298,6 +293,12 @@ var followConfig = [{
                 App.nav.initUser.call(this, data);
                 this.loginCallback && this.loginCallback(data);
             }.bind(this));
+
+            this.modal.on('register', function() {
+                this.modal.hide();
+                this.nRegister.click();
+            }.bind(this));
+            
         }
     })
     App.UserInfo = UserInfo;
@@ -587,9 +588,8 @@ var followConfig = [{
                 login: function(data) {
                     if (!App.user.username) {
                         App.user = data;
-                        this.initStarList();
                     }
-                }.bind(this)
+                }
             });
         },
         initSection: function() {
