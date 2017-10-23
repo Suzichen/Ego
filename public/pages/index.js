@@ -312,7 +312,7 @@ var followConfig = [{
         // 组件节点
         this.slider = this._layout.cloneNode(true);
         this.sliders = [].slice.call(this.buildSlider());
-        this.cursors = this.buildCursor();
+        this.cursors = [].slice.call(this.buildCursor());
         // 初始化事件
         this.slider.addEventListener('mouseenter', this.stop.bind(this));
         this.slider.addEventListener('mouseleave', this.autoPlay.bind(this));
