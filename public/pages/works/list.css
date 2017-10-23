@@ -23,6 +23,9 @@
 }
 
 .g-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     height: 216px;
     background-color: #fff;
     margin-top: -75px;
@@ -87,30 +90,14 @@
 /* 作者信息 */
 img.my-avatar {
     display: block;
-    position: absolute;
-    left: 50%;
     width: 100px;
     height: 110px;
     margin-top: 27px;
-    transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
 }
 
 .u-info {
     display: flex;
     position: relative;
-    top: 150px;
-    left: 50%;
-    width: 135px;
-    text-align: center;
-    transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
 }
 
 .u-info .address-info {
@@ -120,14 +107,15 @@ img.my-avatar {
 
 .u-info .u-icon-female,
 .u-info .u-icon-male {
+    position: absolute;
     width: 21px;
     height: 21px;
     margin-left: 10px;
 }
 
 .u-info .u-icon-address {
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
 }
 
 .u-info.u-info-1 {
