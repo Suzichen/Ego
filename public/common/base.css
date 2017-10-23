@@ -473,13 +473,24 @@ a:hover {
 /* 用户组件 */
 
 .m-user {
-    width: 200px;
+    width: 190px;
+}
+
+.m-user .user_info span {
+    margin-left: 5px;
 }
 
 .m-user .user_avatar,
 .m-user .user_name,
 .m-user .u-icon {
     display: inline-block;
+}
+
+.m-user .user_name,
+.m-user .u-icon-male,
+.m-user .u-icon-female,
+.m-user .u-icon-down {
+    margin-bottom: 6px;
 }
 
 .m-user .user_avatar>img {
@@ -513,15 +524,14 @@ a:hover {
     display: none;
     position: absolute;
     z-index: 9;
-    width: 150px;
+    width: 190px;
     background: #fff;
     /*  */
 }
 
 .m-user .user_list li {
     display: block;
-    padding: 10px 0;
-    text-align: center;
+    padding: 10px 0 10px 60px;
     cursor: pointer;
 }
 
