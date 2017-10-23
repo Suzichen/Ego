@@ -359,7 +359,7 @@ var iconConfig = [
         },
         deleteWorks: function(works) {
             var self = this;
-            var html = `<br><br>确定要删除${works.name}吗?<br><br>`;
+            var html = `<br><br> 确定要删除${works.name}吗?<br><br>`;
             // 弹窗
             var modal = new App.Modal({
                 title: '提示消息：',
@@ -381,7 +381,10 @@ var iconConfig = [
             })
         },
         editWorks: function(works,worksEl) {
-            var input = _.tempToNode('<input type="text" id="delete_ipt">');
+            var input = _.tempToNode(
+                `<input type="text" id="delete_ipt" 
+                placeholder="请输入新的作品名称">`
+            );
             var modal = new App.Modal({
                 title: '请输入新的作品名称',
                 footer: true
