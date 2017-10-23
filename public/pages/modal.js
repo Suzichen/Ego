@@ -262,7 +262,10 @@
 ! function(App) {
     var html = `
         <div class="modal-reg">
-            <div><img src="" alt="logo">/漫画学园/</div>
+            <div class= "reg_title">
+                <img src="../res/images/logo_min.png" alt="logo">
+                <span>/漫画学园/</span>
+            </div>
             <form class="m-form" id="registerform">
                 <!-- 手机 -->
                 <div class="u-formitem">

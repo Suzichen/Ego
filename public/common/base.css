@@ -686,9 +686,10 @@ a:hover {
 }
 
 .u-formitem .formitem_tt {
-    width: 80px;
+    width: 60px;
     height: 40px;
     line-height: 40px;
+    font-size: 13px;
 }
 
 .m-form label {
@@ -828,8 +829,21 @@ a:hover {
 
 .modal-reg {
     width: 350px;
-    margin: 0 105px;
+    margin: 0 35px 0 25px;
     background: #fff;
+}
+
+.modal-reg .reg_title {
+    display: flex;
+    align-items: center;
+    margin-left: -20px;
+}
+
+.modal-reg .reg_title span {
+    margin-left: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: .5em;
 }
 
 .u-formitem .u-radiobox {
@@ -863,7 +877,7 @@ a:hover {
 
 .u-formitem #captchaimg {
     height: 35px;
-    width: 95px;
+    width: 105px;
 }
 
 .u-formitem .in-err {
