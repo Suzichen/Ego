@@ -310,7 +310,7 @@ var iconConfig = [
             var html = `
                 {{#each works}}
                 <li class="item" data-id={{this.id}}>
-                    <a href="#">
+                    <a href="../../works/detail/{{this.id}}">
                         {{#if this.coverUrl}}
                         <img src="{{this.coverUrl}}" alt="作品默认封面">
                         {{else}}
@@ -335,9 +335,6 @@ var iconConfig = [
         addEvent: function() {
             // 给编辑和删除图标添加点击事件
             var self = this;
-            var worksHandler = function(e) {
-                
-            }
             
             _.$('.m-works').addEventListener('click',function(e) {
                 // 多次触发问题
