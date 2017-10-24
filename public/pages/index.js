@@ -422,7 +422,7 @@ var followConfig = [{
             this.imgNth = 0;
             data.forEach(function(item) {
                 html += this.renderItem(item);
-                if(this.avatars.length > this.imgNth){this.imgNth++;}
+                if(this.avatars.length > this.imgNth + 1){this.imgNth++;}
             }.bind(this));
             this.container.innerHTML = html;
         },
@@ -461,6 +461,7 @@ var followConfig = [{
                     if (this.listInfo[i].id == target.dataset.userid) {
                         // data=点击的用户信息
                         data = this.listInfo[i];
+                        this.imgNth = i;
                     }
                 }
                 _.hasClass(target, 'z-unflow') ?
