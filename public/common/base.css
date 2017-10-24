@@ -629,11 +629,14 @@ a:hover {
 }
 
 .m-modal .modal_foot>a {
-    position: relative;
-    top: -50px;
     display: inline-block;
-    margin: 20px;
-    margin-bottom: 20px;
+    margin: -6px 20px;
+}
+
+.m-modal .modal_foot>a.u-btn {
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
 }
 
 .m-modal .modal_foot>.cancel {

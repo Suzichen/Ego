@@ -356,7 +356,7 @@ var iconConfig = [
         },
         deleteWorks: function(works) {
             var self = this;
-            var html = `<br><br> 确定要删除${works.name}吗?<br><br>`;
+            var html = `<br><br> 确定要删除${works.name}吗?`;
             // 弹窗
             var modal = new App.Modal({
                 title: '提示消息：',
