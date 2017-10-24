@@ -173,6 +173,16 @@
             </ul>
         `
     }
+    // 头像库
+    // 存放路径: "../res/avatars/xxx.png"
+    App.avatars = [
+        "avatar1.png",
+        "avatar2.png",
+        "avatar3.png",
+        "avatar4.png",
+        "avatar5.png",
+        "avatar6.png",
+    ]
     window.App = App;
     window._ = _;
 })(util)
@@ -408,8 +418,11 @@ var followConfig = [{
         // 渲染列表
         render: function(data) {
             var html = "";
+            this.avatars = App.avatars;
+            this.imgNth = 0;
             data.forEach(function(item) {
                 html += this.renderItem(item);
+                if(this.avatars.length > this.imgNth){this.imgNth++;}
             }.bind(this));
             this.container.innerHTML = html;
         },
@@ -417,7 +430,7 @@ var followConfig = [{
             var config = followConfig[Number(!!data.isFollow)];
             var html = `
             <li>
-                <img src="../res/images/avatar.png" alt="头像" class="avatar">
+                <img src="../res/avatars/${this.avatars[this.imgNth]}" alt="头像" class="avatar">
                 <div class="section author-info">
                     <div class="author">${data.nickname}</div>
                     <div class="info">
