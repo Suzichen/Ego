@@ -118,6 +118,10 @@ img.my-avatar {
     display: flex;
 }
 
+.u-info .address-info .u-icon-address {
+    margin-right: 2px;
+}
+
 .u-info .u-icon-female,
 .u-info .u-icon-male {
     position: absolute;
@@ -137,7 +141,7 @@ img.my-avatar {
 }
 
 .u-info.u-info-1 em {
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 /* 作品列表头部 */
