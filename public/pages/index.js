@@ -8,10 +8,10 @@
     App.template = {
         diamond: `
             <ul class="section_cnt m-list f-cb">
-                <li><img src="../res/images/work1.png" alt="work1"></li>
-                <li><img src="../res/images/work2.png" alt="work2"></li>
-                <li><img src="../res/images/work3.png" alt="work3"></li>
-                <li><img src="../res/images/work4.png" alt="work4"></li>
+                <li><img src="../res/works/work1.png" alt="work1"></li>
+                <li><img src="../res/works/work2.png" alt="work2"></li>
+                <li><img src="../res/works/work3.png" alt="work3"></li>
+                <li><img src="../res/works/work4.png" alt="work4"></li>
             </ul>
         `,
         star: `
@@ -21,34 +21,34 @@
         `,
         work: `
             <ul class="section m-list m-list-1 f-cb">
-                <li><img src="../res/images/work5.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称作品名称作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work5.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work5.png" alt="">
+                <li><img src="../res/works/work7.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work7.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work7.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
             </ul>
@@ -81,93 +81,93 @@
         `,
         original: `
             <ul class="section m-list m-list-2 f-cb">
-                <li><img src="../res/images/work7.png" alt="">
+                <li><img src="../res/works/work5.png" alt="">
                     <div>作品名称作品名称作品名称</div>
                 </li>
-                <li><img src="../res/images/work5.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work5.png" alt="">
+                <li><img src="../res/works/work7.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work7.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work7.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
             </ul>
         `,
         fanfiction: `
             <ul class="section m-list m-list-2 f-cb">
-                <li><img src="../res/images/work7.png" alt="">
+                <li><img src="../res/works/work5.png" alt="">
                     <div>作品名称作品名称作品名称</div>
                 </li>
-                <li><img src="../res/images/work5.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work7.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work5.png" alt="">
+                <li><img src="../res/works/work7.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work7.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
             </ul>
         `,
         copy: `
             <ul class="section m-list m-list-2 f-cb">
-                <li><img src="../res/images/work7.png" alt="">
+                <li><img src="../res/works/work5.png" alt="">
                     <div>作品名称作品名称作品名称</div>
                 </li>
-                <li><img src="../res/images/work5.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work7.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work5.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work7.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work6.png" alt="">
                     <div>作品名称</div>
                 </li>
-                <li><img src="../res/images/work6.png" alt="">
+                <li><img src="../res/works/work7.png" alt="">
                     <div>作品名称</div>
                 </li>
             </ul>
