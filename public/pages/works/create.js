@@ -245,6 +245,7 @@ var iconConfig = [
                         var fd = new FormData();
                         fd.append('file',file,file.name);
                         var xhr = new XMLHttpRequest();
+                        xhr.withCredentials = true;
                         xhr.addEventListener('readystatechange',function() {
                             if(this.readyState === this.DONE) {
                                 if(xhr.status === 200) {
